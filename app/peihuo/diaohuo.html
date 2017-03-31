@@ -1,0 +1,171 @@
+<div id="DCcard2" class="SLiveIndexSLiveIndex__root ebase-Card__root">
+
+    <div class="ebase-Card__headerWrapper" style="margin-bottom: 20px"><h4 class="ebase-Card__title">调货明细</h4>
+        <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+            <!--<div class="ui-download">-->
+            <!--<a class="btn btn-hollow btn-hollow-diy pull-left" ng-click="addNewSd()"-->
+            <!--style="margin-top: 10px;margin-left: 10px;">新增一条</a>-->
+            <!--</div>-->
+            <input ng-model="searchInSdorder" ng-init="searchInSdorder = undefined"
+                   ng-change="searchAll(searchInSdorder)" style="text-align: left;    cursor: auto;"
+                   placeholder="货号/订单编号/运单号"
+                   class="dip-input">
+            <i class="ui-search-empty ng-scope ng-isolate-scope" ng-if="searchInSdorder!=undefined;"
+               ng-click="searchInSdorder=undefined" style=""></i>
+            <div class="operation-btns pull-right">
+                <div class="ui-switch btn-group-switch">
+                    <ul class="ui-switch-menu">
+                        <li class="ui-switch-link ui-switch-item" ng-click="all( menu,$event)"
+                            ng-repeat="menu in menus"
+                            ng-class="{active: menuId == menu.id}"><a>{{menu.text}} {{menu.num}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ui-download"><a class="btn-dropdown btn btn-blank"
+                                            ng-href="http://www.a10store.com/TB_API/API/get_excel_peihuo.php" ><i
+                        class="icon-download"></i>
+                    <span class="val">下载</span></a>
+                </div>
+                <div class="ui-download"><a class="btn-dropdown btn btn-blank"
+                                            ng-href="http://www.a10store.com/TB_API/app/peihuo/api/get_peihuo_excel.php" ><i
+                        class="icon-download"></i>
+                    <span class="val">下载配货单</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ebase-CardContent__root" data-ebase="CardContent">
+        <div class="ebase-Table__root">
+            <div class="pull-left ebase-CardLink__root" data-ebase="CardLink">
+                <div class="ui-combopanel inline-combopanel">
+                    <div class="ui-combopanel-panel">
+                        <div class="ui-combopanel-groups">
+                            <div class="group-wrapper">
+                                <span class="group-title">15000件</span>
+
+                                <div class="group clearfix">
+                                   <span class="checkbox ng-scope" ng-repeat="s in opSelected" ng-class="{'selected':iamSelected==s.title}" ng-click="openTo(s,'card2')">
+                                                    <span class="option"></span>
+                                                    <span class="name ng-binding">{{s.title}}</span>
+                                                </span>
+                                </div>
+                            </div>
+                        </div><!-- react-text: 210 --><!-- /react-text --></div>
+                </div>
+            </div>
+            <table class="ebase-Table__table" style="font-size: 14px;border: 0;" ng-hide="selectId == 2">
+                <thead class="ebase-Table__thead">
+                <tr>
+                    <th>店铺</th>
+                    <th>公司货号</th>
+                    <th>订单编号</th>
+                    <th>颜色</th>
+                    <th>尺码</th>
+                    <th>数量</th>
+                    <th>付款时间</th>
+                    <th>运单号</th>
+                    <th>姓名</th>
+                    <th>手机号</th>
+                    <th>收货地址</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="pee in peeihuo_list |filter:searchOrder" ng-class="{isEdit: currentId == pee.key}"
+                    ng-click="clickme(pee.key)" class="ebase-Table__tbodyTr">
+                    <td>
+                        {{pee.key}}
+                        <span ng-if="pee.shop ==='依布服饰旗舰店—天猫'">
+
+            <img src="../../img/tmpeihuo.png" width="20" ng-hide="currentId == pee.key">
+                <img src="img/tmall_peihuo.png" width="20" ng-if="currentId == pee.key">
+        </span>
+
+                        <img ng-if="pee.shop ==='依布专卖店—C店'" src="../../img/tbpeihuo.png" width="20">
+
+                    </td>
+                    <td>
+                        <a ng-if="pee.shop ==='依布服饰旗舰店—天猫'" ng-href="https://item.taobao.com/item.htm?id={{pee.tmall_shop_num_iid}}"
+                           target="_blank">{{pee.outer_id_gs}}</a>
+
+                        <a ng-if="pee.shop ==='依布专卖店—C店'" ng-href="https://item.taobao.com/item.htm?id={{pee.tb_shop_num_iid}}"
+                           target="_blank">{{pee.outer_id_gs}}</a>
+                    </td>
+                    <td>
+
+                        <!--点击编辑图标隐藏本内容-->
+                        <div>
+
+                            <!--<a target="_blank"> {{pee.order_id}}</a>-->
+                            <a ng-if="pee.shop ==='依布服饰旗舰店—天猫'"
+                               ng-href="https://trade.tmall.com/detail/orderDetail.htm?bizOrderId={{pee.order_id}}" target="_blank">
+                                {{pee.order_id}}</a>
+                            <a ng-if="pee.shop ==='依布专卖店—C店'"
+                               ng-href="https://trade.taobao.com/trade/detail/trade_order_detail.htm?biz_order_id={{pee.order_id}}"
+                               target="_blank"> {{pee.order_id}}</a>
+
+                            <img ng-click="clickme(pee.key)" clip-copy="pee.order_id" clip-click="alert()"
+                                 ng-hide="currentId == pee.key" width="16" src="img/copy_peihuo1.png">
+                            <img ng-click="clickme(pee.key)" clip-copy="pee.order_id" clip-click="alert()"
+                                 ng-if="currentId == pee.key" width="16" src="img/copy_peihuo.png">
+
+                        </div>
+
+                        <!--点击编辑图标显示本内容-->
+                        <!--<div style="display: inline-block" >-->
+                        <!--<input ng-if="pee.order_id === ''" ng-model="pee.order_id">-->
+                        <!--<input ng-if="pee.order_id != ''" ng-model="pee.order_id">-->
+
+                        <!--<button ng-click="sendOreder(pee);">提交</button>-->
+                        <!--<button ng-click="toEdit = false">取消</button>-->
+                        <!--</div>-->
+
+                    </td>
+
+                    <td>{{pee.sku_color}}</td>
+                    <td>{{pee.sku_size}}</td>
+                    <td>{{pee.num}}</td>
+                    <td>{{pee.pay_time}}</td>
+                    <td>
+
+                        <span ng-hide="currentId == pee.key&&menuId == 2"> {{pee.wl_no}}</span>
+                        <input ng-model="pee.wl_no" style="color: black;" ng-show="currentId == pee.key&&menuId == 2">
+                    </td>
+                    <td>{{pee.name}}</td>
+                    <td>
+                        <span ng-hide="menuId!=2&&currentId == pee.key&&menuId!=3" ng-click="clickme(pee.key)">{{pee.phone}}</span>
+                        <div style="display: inline-block" ng-show="menuId!=2&&currentId == pee.key&&menuId!=3" >
+                            <input  maxlength="11" minlength="11" ng-model="pee.phone" ng-change="sendPhone(pee);" style="    color: black;">
+                            <!--<input ng-if="pee.order_id != ''" ng-model="pee.phone">-->
+
+                            <!--<button ng-click="">提交</button>-->
+                            <!--<button ng-click="toeditPhone = false">取消</button>-->
+                        </div>
+                    </td>
+                    <td width="250">{{pee.buyer_address}}</td>
+                    <td>
+                        {{pee.state}}
+
+                        <div style="    display: inline-block;" ng-if="pee.state ==='调回途中'">
+                            <input placeholder="填写运单号" ng-model="yundanhao">
+                            <button ng-click="sendyundan(yundanhao)">提交</button>
+                        </div>
+
+                    </td>
+
+                    <td>
+                        <a class="sui-btn" ng-click="remove($index,pee.id,'isInAll')" ng-hide="isInDelete||isInyTj">
+                            删除
+                        </a>
+
+                        <a class="sui-btn sui-btn-primary" ng-click="remove($index,pee.id,'isInDelete')" ng-if="isInDelete">
+                            撤销
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

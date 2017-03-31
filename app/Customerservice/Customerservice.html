@@ -1,0 +1,52 @@
+<div id="SItemVisitorRank" class="ebase-SwitchCard__root SItemVisitorRankSItemVisitorRank__root ebase-Card__root"
+     name="商品访客榜TOP10" data-card-id="SItemVisitorRank" data-spm="C_SItemVisitorRank" data-ebase="Card"
+     style="min-height: 300px;"
+     data-spm-max-idx="22">
+    <div class="ebase-Card__headerWrapper"><h4 class="ebase-Card__title">客服TOP榜</h4>
+        <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+            <div class="pull-left ebase-Switch__root op-ebase-switch" data-ebase="Switch"><span
+                    class="ebase-Switch__item ebase-Switch__activeItem">本月</span></div>
+            <div class="pull-right ebase-CardLink__root" data-ebase="CardLink">
+                <span class="SItemVisitorRankSItemVisitorRank__updateTime">更新时间 : {{reFresh|date:'yyyy-MM-dd hh:mm:ss'}}</span>
+            </div>
+            <span></span></div>
+    </div>
+    <div class="ebase-CardContent__root" data-ebase="CardContent">
+        <div class="ebase-SwitchCard__table">
+            <div class="switch-card-today ebase-Table__root" data-ebase="Table">
+                <table class="ebase-Table__table">
+                    <thead class="ebase-Table__thead">
+                    <tr>
+                        <th class="ebase-Table__th col-0 col-rank " >名次</th>
+                        <th class="ebase-Table__th col-0 col-rank " >姓名</th>
+                        <th class="ebase-Table__th col-1 col-name ">天猫</th>
+                        <th class="ebase-Table__th col-1 col-name ">淘宝</th>
+                        <th class="ebase-Table__th col-1 col-name " >一号店</th>
+                        <th class="ebase-Table__th col-1 col-name ">销售金额</th>
+                        <!--<th class="ebase-Table__th col-2 col-uv " style="text-align: left;">提成金额</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="ebase-Table__tbodyTr" ng-repeat="ke in customer">
+                        <td class="ebase-Table__td col-0 col-rank col-level-0 ebase-Table__noChildren">
+                            <!--<i class="oui-icon oui-icon-plus2 ebase-Table__levelExpand"></i>-->
+                            <div class="ItemVisitorRank__rank">
+                                <img ng-if="$index==0||$index==1||$index==2" src="//img.alicdn.com/tps/TB1EiieKFXXXXX4XXXXXXXXXXXX-21-22.png">
+                                <img>
+                                <span ng-class="{'SItemVisitorRankSItemVisitorRank__top':$index==0||$index==1||$index==2}">{{$index+1}}</span></div>
+                        </td>
+                        <td class="ebase-Table__td col-1 col-name GoodsTd col-level-0 ebase-Table__noChildren">
+                            {{ke.kf_name}}
+                        </td>
+                        <td class="ebase-Table__td col-2 col-uv col-level-0 ebase-Table__noChildren">{{ke.sales_tm}}</td>
+                        <td class="ebase-Table__td col-2 col-uv col-level-0 ebase-Table__noChildren">{{ke.sales_tb}}</td>
+                        <td class="ebase-Table__td col-2 col-uv col-level-0 ebase-Table__noChildren">{{ke.sales_yhd}}</td>
+                        <td class="ebase-Table__td col-2 col-uv col-level-0 ebase-Table__noChildren">{{ke.sales_all}}</td>
+                        <!--<td class="ebase-Table__td col-2 col-uv col-level-0 ebase-Table__noChildren">{{ke.performance}}</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       </div>
+</div>

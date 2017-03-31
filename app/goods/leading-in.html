@@ -1,0 +1,97 @@
+<form>
+
+
+                <div class="ui-form-group page-excel-import" style="    margin-bottom: 20px;">
+                    <!--            <label class="ui-form-label">导入方式：</label>-->
+                    <div class="ui-form-control">
+                        <label ng-repeat="l in contacts|filter:{group:''+shops}">
+                            <input type="checkbox"   ng-model="selectedId"  ng-click="Newvalue(l)">{{l.title}}
+                        </label>
+                    </div>
+                </div>
+                <div class="ui-form-group">
+                    <label class="ui-form-label"></label>
+                    <div class="ui-form-control">
+
+                        <!-- Excel导入 开始 -->
+                        <div class="excelimport">
+                            <!-- 加载动画-->
+                            <div ng-show="cv.uploaderStatus == 'preparing'" class="ui-loading ng-hide" style=""><i></i><span>Loading...</span></div>
+                            <!-- 文件上传操作 -->
+                            <div ng-class="cv.uploaderStatus" class="excelimport-uploader ready" style="">
+                                <!-- 上传文件按钮 -->
+                                <a ng-show="(uploader.queue.length === 0)" href="javascript:;" style="width: 100px" class="sui-btn-primary sui-btn" title="选择文件">
+                                    <input type="file" ng-click="uploader.clearQueue()" multiple="multiple" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" nv-file-select="" uploader="uploader"
+                                           class="ng-isolate-scope">
+                                    <span>选择文件</span>
+
+                                </a>
+                                <span>
+
+                                    <a ng-if="selectedId == 1" ng-href="http://www.a10store.com/TB_API/API/uploads/template/template_sales_week.xls">下载模板</a>
+                                    <a ng-if="selectedId == 2" ng-href="http://www.a10store.com/TB_API/API/uploads/template/template_num_ds_ck.xls">下载模板</a>
+                                    <a ng-if="selectedId == 3" ng-href="http://www.a10store.com/TB_API/API/uploads/template/template_all_goods_yhd.xls">下载模板</a>
+                                    <a ng-if="selectedId == 4" ng-href="http://www.a10store.com/TB_API/API/uploads/template/template_num_gs_ck_shop.xls">下载模板</a>
+                                </span>
+
+                                <!-- 文件上传的成功后的显示 -->
+                                <!-- ngIf: uploaderInfo.fileName -->
+
+                                <div class="excelimport-fileInfo ng-scope" ng-if="(uploader.queue.length > 0)" ng-repeat="item in uploader.queue" ng-class="{'success': cv.uploaderStatus == 'success', 'error': cv.uploaderStatus == 'error'}" style="">
+                                    <span class="excelimport-file ng-binding"> <i></i> {{item.file.name}} </span>
+
+                                    <!-- ngIf: uploaderInfo.fileName -->
+                                    <a ng-disabled="!item.isUploading" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" class="excelimport-remove" ng-if="!fileName" href="javascript:;"> 上传 </a>
+                                    <a ng-disabled="!item.isUploading" ng-click="item.cancel()" class="excelimport-remove" ng-if="!fileName" href="javascript:;"> 取消 </a> <a ng-disabled="!item.isUploading" ng-click="item.remove()"
+                                                                                                                                                                             class="excelimport-remove" ng-if="!fileName" href="javascript:;"> 删除 </a>
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                    <!-- end ngIf: uploaderInfo.fileName -->
+                                </div>
+                                <!-- 提交前进行校验 -->
+
+                                <!--                  <input name="fileName" ng-model="formData.fileName" required="" type="text" style="display:none">-->
+
+                                <!-- ngIf: submitted && form.fileName.$error.required && cv.uploaderStatus == 'ready' -->
+                            </div>
+                            <!-- 导入文件示例 -->
+
+                            <!-- ngIf: model.type === 'ZHE' -->
+
+                            <!-- ngIf: model.excel_type === 'outer_id' -->
+
+
+                            <!-- end ngIf: model.excel_type === 'outer_id' -->
+
+                            <!-- ngIf: model.excel_type === 'item_id' -->
+                        </div>
+                        <!-- end ngIf: model.type === 'ZHE' -->
+
+                        <!-- ngIf: model.type !== 'ZHE' -->
+
+
+                        <!-- Excel导入 结束 -->
+
+                    </div>
+                </div>
+
+        <style>
+
+
+            .excelimport-info .tr:hover .td {
+                border-color: #2b81ec;
+                border-style: solid;
+            }
+        </style>
+    <div class="actionButton" style="">
+        <button ng-if="selectedIndex === 0" type="button" class="sui-btn-primary sui-btn" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+            全部导入
+        </button>
+        <button type="button" ng-if="available_list&&selectedIndex === 1" class="sui-btn" ng-click="toFinsh(available_list)" ng-disabled="!available_list.length">
+            完成导入
+        </button>
+        <button class="sui-btn" ng-if="selectedIndex === 0" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading"> 取消所有</button>
+        <button class="sui-btn" ng-if="selectedIndex === 0" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length"> 删除所有</button>
+    </div>
+</form>

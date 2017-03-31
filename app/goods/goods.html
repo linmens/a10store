@@ -1,0 +1,273 @@
+<div class="goods-main">
+    <div class="sui-tab-mod sui-tab-horizon">
+        <div class="sui-tab-content m-header">
+
+            <div id="mainsrp-tab" style="    ">
+                <div class="m-tab g-clearfix">
+                    <ul class="tabs">
+                        <li class="tab" ng-click="needJson(item)" ng-repeat="item in menu">
+                            <a class="link " ng-class="{'selected':activeMenu ==item.name}">{{item.name}}</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="goods-operate" style="margin-top: 20px;">
+                    <span class="goods-operate-item">
+                        <a class="sui-btn-primary sui-btn"
+                           ng-click="showgoodsSkusDialog(activeMenu,'showBaobiao')">报表库存</a>
+                    </span>
+                <span class="goods-operate-item">
+                        <a class="sui-btn"ng-click="getExcel()">下载闪购商品</a>
+                    </span>
+                <span class="goods-operate-item"><input class="sui-input sui-size-small"
+                                                        style="text-align: left;cursor: auto;"
+                                                        type="text" placeholder="按Enter搜索"
+                                                        ng-model="searchInSdorder"
+                                                        ng-keyup="mykey($event,searchInSdorder)">
+                    <button class="button-mod" ng-click="searchWeb(searchInSdorder)">搜索</button>
+                    </span>
+            </div>
+            <div>
+                <div class="m-nav g-clearfix">
+                    <div class="pull-left ebase-CardLink__root" data-ebase="CardLink">
+                        <div class="ui-combopanel inline-combopanel">
+                            <div class="ui-combopanel-panel">
+                                <div class="ui-combopanel-groups">
+                                    <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->年份
+                                        <!-- /react-text --><!-- react-text: 199 -->：
+                                        <!-- /react-text --></span>
+                                        <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="y in filterJson.year"
+                                                      ng-class="{'selected':isActiveyear==y}" ng-click="checkYear(y)">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{y}}</span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->状态
+                                        <!-- /react-text --><!-- react-text: 199 -->：
+                                        <!-- /react-text --></span>
+                                        <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in filterJson.status"
+                                                      ng-class="{'selected':activeStatus==s}" ng-click="checkStatus(s)">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s}}</span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->季节
+                                        <!-- /react-text --><!-- react-text: 199 -->：
+                                        <!-- /react-text --></span>
+                                        <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in filterJson.season"
+                                                      ng-class="{'selected':activeSeason==s}" ng-click="checkSeason(s)">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s}}</span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->颜色
+                                        <!-- /react-text --><!-- react-text: 199 -->：
+                                        <!-- /react-text --></span>
+                                        <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in filterJson.color"
+                                                      ng-class="{'selected':activeColor==s}" ng-click="checkColor(s)">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s}}</span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->拍摄
+                                        <!-- /react-text --><!-- react-text: 199 -->：
+                                        <!-- /react-text --></span>
+                                        <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in filterJson.paishe"
+                                                      ng-class="{'selected':activePaishe==s}" ng-click="checkPaishe(s)">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s}}</span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div> <button class="layui-btn layui-btn-primary" ng-click="reset()" >重置</button></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="goods-table" style="margin-top: 20px;">
+                <div class="clearfix  sui-table-container">
+                    <div class="sui-table-body" cg-busy="myPromise">
+                        <table class="sui-table sui-table-bordering table-fixed-width" lazy-container ng-if="activePaishe !='未拍摄'">
+                            <thead class="sui-table-thead" ng-if="!options.decapitate">
+                            <tr>
+                                <th class=" goods-cell-ctn goods-cell-ctn-undefined">状态</th>
+                                <th class=" goods-cell-ctn goods-cell-ctn-undefined">产品主图</th>
+                                <th class=" goods-cell-ctn goods-cell-ctn-undefined">颜色</th>
+                                <th class=" goods-cell-ctn goods-cell-ctn-undefined"
+                                    ng-repeat="item in tableTh" ng-click="checkSort(item)">{{item.name}}
+                                    <span class="table-sort" ng-class="{'desc':item.sort=='down','asc':item.sort=='up'}"></span>
+                                </th>
+                                <th class=" goods-cell-ctn goods-cell-ctn-undefined">上架状态</th>
+                            </tr>
+                            </thead>
+                            <tbody class="sui-table-tbody">
+                            <tr ng-repeat="item in goods|filter:search| orderBy: query.order">
+                                <td><span style="padding: 2px;color: rgb(221,44,0);border: 1px solid #ff4400;"
+                                          ng-if="item.state_quehuo =='缺货'">{{item.state_quehuo}}</span>
+                                    <span style="padding: 2px;color: rgb(221,44,0);border: 1px solid #ff4400;"
+                                          ng-if="item.goods_state_color_num =='多色'">多色</span>
+                                    <span style="padding: 2px;color: rgb(221,44,0);border: 1px solid #ff4400;"
+                                          ng-if="item.goods_state_color_num =='单色'">
+                                                 单色</span>
+                                </td>
+                                <td>{{item.outer_id_gs}}<div class="pic" ng-style="{'background-image':'url({{item.pic_url}})'}"  style="background-size:cover"></div>
+                                </td>
+                                <td>{{item.goods_color_gs}}</td>
+                                <td>{{item.goods_class_gs}}</td>
+                                <td> {{item.price_gs}}</td>
+                                <td>
+                                    <ul class="kucun">
+                                        <li><span>淘宝:</span> {{item.goods_price_ump_tb}}</li>
+                                        <li><span>天猫:</span> {{item.goods_price_ump_tm}}</li>
+                                        <li><span>一号店:</span> {{item.goods_price_ump_yhd}}</li>
+                                    </ul>
+                                </td>
+                                <td ng-click="showgoodsSkusDialog(item,'showThree')">
+                                    <style>
+                                        .kucun > li {
+                                            margin-bottom: 5px;
+                                        }
+                                    </style>
+                                    <ul class="kucun">
+                                        <li><span>电商:</span> {{item.num_ds_ck}}</li>
+                                        <li><span>大仓:</span> {{item.num_gs_ck}}</li>
+                                        <li><span>商场:</span> {{item.num_gs_shop}}</li>
+                                    </ul>
+                                    <!--<div ng-click="showgoodsSkusDialog($event,item.outer_id_ds)">-->
+                                    <!--<span>{{item.num}} </span>-->
+                                    <!--<span class="sui-icon sui-icon-bianji"></span>-->
+                                    <!--</div>-->
+                                    <div ng-repeat="i in item.sku_info"></div>
+                                </td>
+                                <!--<td ">{{item.created}}</span></td>-->
+                                <td> {{item.sales_volume_7d}}</td>
+                                <td> {{item.sales_volume_30d}}</td>
+                                <td> {{item.sales_volume_all}}</td>
+                                <td> {{item.dongxiaolv}}</td>
+                                <td> {{item.zhouzhuan_time}}</td>
+                                <td> {{item.time_goods_onlist}}</td>
+                                <td>
+                                    <ul class="kucun">
+                                        <li ><a target="_blank" ng-href="{{'https://item.taobao.com/item.htm?id='+ item.num_iid_tb}}"><span>淘宝:</span> {{item.state_onsale_tb}}</a></li>
+                                        <li ><a target="_blank" ng-href="{{'https://detail.tmall.com/item.htm?id='+ item.num_iid_tm}}"><span>天猫:</span> {{item.state_onsale_tm}}</a></li>
+                                        <li ><a target="_blank" ng-href="{{'https://detail.tmall.com/item.htm?id='+ item.num_iid_yhd}}"><span>一号店:</span> {{item.state_onsale_yhd}}</a></li>
+                                    </ul>
+
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <table class="sui-table sui-table-bordering table-fixed-width" ng-if="activePaishe =='未拍摄'">
+                            <thead class="sui-table-thead">
+                            <tr>
+                                <th>产品主图</th>
+                                <th ng-click="checkSort(tableTh[3])">库存
+                                    <span class="table-sort" ng-class="{'desc':tableTh[3].sort=='down','asc':tableTh[3].sort=='up'}"></span>
+                                </th>
+                                <th>拍摄进度</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in goods|filter:search">
+                               <td> <div class="goods-item-image" style="float: left;">
+                                   <div ng-if="activeMenu =='天猫'||activeMenu =='所有宝贝'">
+                                       {{item.outer_id_gs}}
+                                       <a target="_blank"
+                                          ng-href="{{'https://detail.tmall.com/item.htm?id='+ item.num_iid_tm}}">
+                                           <img ng-src="{{item.pic_url}}" ng-if="item.pic_url !=0">
+                                       </a>
+
+
+                                       <svg ng-if="item.pic_url == 0" t="1488029170430" class="icon" style=""
+                                            viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            p-id="4432" xmlns:xlink="http://www.w3.org/1999/xlink" width="52"
+                                            height="52">
+                                           <defs>
+                                               <style type="text/css"></style>
+                                           </defs>
+                                           <path d="M256.308861 306.781842c17.771467 0 24.070521-11.146184 24.070521-20.659205 0-119.951866 103.902167-217.523766 231.622128-217.523766 127.711906 0 231.614073 97.579955 231.614073 217.523766 0 9.513021 6.299054 20.659205 24.069514 20.659205 7.26264 0 26.486031 0 26.486031-24.291028 0-146.706735-126.586212-266.055479-282.177673-266.055479-155.592468 0-282.202845 119.348744-282.202845 266.055479C229.79061 306.781842 249.047228 306.781842 256.308861 306.781842L256.308861 306.781842zM952.11366 385.944918c-21.311664-24.567921-52.203811-29.70906-74.398511-29.70906-0.112771 0-10.248045 0.033227-16.056747 1.019971l-697.348349 0.204397c-2.350063-0.351402-9.056904-1.224369-18.03225-1.224369-22.185638 0-53.08584 5.141139-74.398511 29.70906-17.56707 20.211142-24.047363 48.548829-19.279777 84.157211 13.528467 101.700116 81.21913 483.789684 81.887699 487.568512l0.057392 0.284948c5.058575 24.054411 31.332154 69.518154 94.641874 69.518154L794.807478 1027.473743c63.309719 0 89.648746-45.757752 94.732493-69.976285l0.056385-0.40678c2.783022-15.740586 68.53141-387.206542 81.808156-486.988548C976.160016 434.493748 969.681737 406.156061 952.11366 385.944918L952.11366 385.944918zM913.38193 469.170764c-11.912421 89.329564-67.92728 407.539517-79.048292 470.433394l-0.352409 2.097335c-0.872967 3.769766-8.297715 29.960781-46.109154 29.960781L236.121884 971.662274c-37.198249 0-45.039846-25.668443-46.027597-29.617434l-0.228562-1.273706c-11.122019-62.958318-67.258711-381.46228-79.253696-471.543985-2.72563-20.61893-0.196342-35.541928 7.555643-44.493109 9.612702-11.031399 27.326777-12.712892 37.052251-12.712892 5.107912 0 8.944133 0.457124 11.700976 0.751134 0.701797 0.090619 1.313981 0.17117 1.860718 0.204397l0.465179 0.056385 687.328866-0.20339 0.783354 0 0.840746-0.113778c0.031213-0.033227 4.274214-0.693742 10.574275-0.693742 9.701308 0 27.440555 1.681493 37.052251 12.712892C913.586327 433.686228 916.107559 448.609227 913.38193 469.170764L913.38193 469.170764zM494.935867 850.390385c0.546737 0.579964 1.157914 1.102536 1.770099 1.624101 0.285954 0.228562 0.579964 0.465179 0.872967 0.636349l0.204397 0.179225c0.260782 0.172177 0.522572 0.408794 0.782347 0.578957 0.399732 0.236617 0.783354 0.465179 1.184093 0.751134l0.121833 0.057392c0.229569 0.121833 0.465179 0.29401 0.693742 0.415842 0.4974 0.220507 0.986744 0.457124 1.451924 0.692735 0.236617 0.114785 0.432959 0.228562 0.66857 0.285954 0.522572 0.23561 1.045144 0.407787 1.598929 0.588019 0.204397 0.112771 0.408794 0.17117 0.604129 0.228562 0.555799 0.179225 1.134756 0.343347 1.804333 0.465179l0.464173 0.114785c3.166644 0.635343 6.479286 0.635343 9.612702 0 0.179225 0 0.317168-0.058399 0.4974-0.114785 0.636349-0.121833 1.215307-0.29401 1.76305-0.465179 0.23561-0.057392 0.440007-0.114785 0.66857-0.228562 0.52962-0.180232 1.044137-0.352409 1.574763-0.588019 0.228562-0.058399 0.431952-0.17117 0.66857-0.285954 0.489345-0.23561 0.986744-0.473235 1.444876-0.692735 0.23561-0.179225 0.441014-0.29401 0.676625-0.415842 0.457124-0.284948 0.931366-0.522572 1.305926-0.808526 0.261789-0.179225 0.523579-0.351402 0.751134-0.52962l0.089612-0.104716c0.375567-0.236617 0.725962-0.530627 1.076357-0.759189 0.343347-0.351402 0.725962-0.637356 1.077364-0.986744 0.228562-0.236617 0.431952-0.408794 0.660515-0.637356L692.778111 685.390618c9.383133-9.472746 9.383133-24.862937 0-34.326621-4.552114-4.587354-10.59844-7.083415-17.045505-7.083415-6.412831 0-12.483323 2.49606-17.012278 7.083415L536.058942 774.654735 536.058942 516.61303c0.024165-6.446059-2.49606-12.550784-7.033071-17.136125-4.561175-4.594403-10.59844-7.090463-17.045505-7.146848-6.446059 0-12.483323 2.552446-17.045505 7.146848-4.528955 4.585341-7.026023 10.689059-7.026023 17.136125l0 258.041705-122.603994-123.534352c-4.527948-4.585341-10.59844-7.082408-17.019326-7.082408-6.446059 0-12.48433 2.497067-17.038457 7.082408-4.534997 4.586348-7.057236 10.688052-7.057236 17.191503 0 6.446059 2.522239 12.549777 7.057236 17.135118L494.935867 850.390385 494.935867 850.390385zM494.935867 850.390385"
+                                                 p-id="4433" fill="#d81e06"></path>
+                                       </svg>
+                                   </div>
+                                   <a ng-if="activeMenu =='淘宝'" target="_blank"
+                                      ng-href="{{'https://item.taobao.com/item.htm?id='+ item.num_iid_tb}}">
+                                       <img ng-src="{{item.pic_url}}" ng-if="item.pic_url !=0">
+                                       <svg ng-if="item.pic_url == 0" t="1488029170430" class="icon" style=""
+                                            viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            p-id="4432" xmlns:xlink="http://www.w3.org/1999/xlink" width="52"
+                                            height="52">
+                                           <defs>
+                                               <style type="text/css"></style>
+                                           </defs>
+                                           <path d="M256.308861 306.781842c17.771467 0 24.070521-11.146184 24.070521-20.659205 0-119.951866 103.902167-217.523766 231.622128-217.523766 127.711906 0 231.614073 97.579955 231.614073 217.523766 0 9.513021 6.299054 20.659205 24.069514 20.659205 7.26264 0 26.486031 0 26.486031-24.291028 0-146.706735-126.586212-266.055479-282.177673-266.055479-155.592468 0-282.202845 119.348744-282.202845 266.055479C229.79061 306.781842 249.047228 306.781842 256.308861 306.781842L256.308861 306.781842zM952.11366 385.944918c-21.311664-24.567921-52.203811-29.70906-74.398511-29.70906-0.112771 0-10.248045 0.033227-16.056747 1.019971l-697.348349 0.204397c-2.350063-0.351402-9.056904-1.224369-18.03225-1.224369-22.185638 0-53.08584 5.141139-74.398511 29.70906-17.56707 20.211142-24.047363 48.548829-19.279777 84.157211 13.528467 101.700116 81.21913 483.789684 81.887699 487.568512l0.057392 0.284948c5.058575 24.054411 31.332154 69.518154 94.641874 69.518154L794.807478 1027.473743c63.309719 0 89.648746-45.757752 94.732493-69.976285l0.056385-0.40678c2.783022-15.740586 68.53141-387.206542 81.808156-486.988548C976.160016 434.493748 969.681737 406.156061 952.11366 385.944918L952.11366 385.944918zM913.38193 469.170764c-11.912421 89.329564-67.92728 407.539517-79.048292 470.433394l-0.352409 2.097335c-0.872967 3.769766-8.297715 29.960781-46.109154 29.960781L236.121884 971.662274c-37.198249 0-45.039846-25.668443-46.027597-29.617434l-0.228562-1.273706c-11.122019-62.958318-67.258711-381.46228-79.253696-471.543985-2.72563-20.61893-0.196342-35.541928 7.555643-44.493109 9.612702-11.031399 27.326777-12.712892 37.052251-12.712892 5.107912 0 8.944133 0.457124 11.700976 0.751134 0.701797 0.090619 1.313981 0.17117 1.860718 0.204397l0.465179 0.056385 687.328866-0.20339 0.783354 0 0.840746-0.113778c0.031213-0.033227 4.274214-0.693742 10.574275-0.693742 9.701308 0 27.440555 1.681493 37.052251 12.712892C913.586327 433.686228 916.107559 448.609227 913.38193 469.170764L913.38193 469.170764zM494.935867 850.390385c0.546737 0.579964 1.157914 1.102536 1.770099 1.624101 0.285954 0.228562 0.579964 0.465179 0.872967 0.636349l0.204397 0.179225c0.260782 0.172177 0.522572 0.408794 0.782347 0.578957 0.399732 0.236617 0.783354 0.465179 1.184093 0.751134l0.121833 0.057392c0.229569 0.121833 0.465179 0.29401 0.693742 0.415842 0.4974 0.220507 0.986744 0.457124 1.451924 0.692735 0.236617 0.114785 0.432959 0.228562 0.66857 0.285954 0.522572 0.23561 1.045144 0.407787 1.598929 0.588019 0.204397 0.112771 0.408794 0.17117 0.604129 0.228562 0.555799 0.179225 1.134756 0.343347 1.804333 0.465179l0.464173 0.114785c3.166644 0.635343 6.479286 0.635343 9.612702 0 0.179225 0 0.317168-0.058399 0.4974-0.114785 0.636349-0.121833 1.215307-0.29401 1.76305-0.465179 0.23561-0.057392 0.440007-0.114785 0.66857-0.228562 0.52962-0.180232 1.044137-0.352409 1.574763-0.588019 0.228562-0.058399 0.431952-0.17117 0.66857-0.285954 0.489345-0.23561 0.986744-0.473235 1.444876-0.692735 0.23561-0.179225 0.441014-0.29401 0.676625-0.415842 0.457124-0.284948 0.931366-0.522572 1.305926-0.808526 0.261789-0.179225 0.523579-0.351402 0.751134-0.52962l0.089612-0.104716c0.375567-0.236617 0.725962-0.530627 1.076357-0.759189 0.343347-0.351402 0.725962-0.637356 1.077364-0.986744 0.228562-0.236617 0.431952-0.408794 0.660515-0.637356L692.778111 685.390618c9.383133-9.472746 9.383133-24.862937 0-34.326621-4.552114-4.587354-10.59844-7.083415-17.045505-7.083415-6.412831 0-12.483323 2.49606-17.012278 7.083415L536.058942 774.654735 536.058942 516.61303c0.024165-6.446059-2.49606-12.550784-7.033071-17.136125-4.561175-4.594403-10.59844-7.090463-17.045505-7.146848-6.446059 0-12.483323 2.552446-17.045505 7.146848-4.528955 4.585341-7.026023 10.689059-7.026023 17.136125l0 258.041705-122.603994-123.534352c-4.527948-4.585341-10.59844-7.082408-17.019326-7.082408-6.446059 0-12.48433 2.497067-17.038457 7.082408-4.534997 4.586348-7.057236 10.688052-7.057236 17.191503 0 6.446059 2.522239 12.549777 7.057236 17.135118L494.935867 850.390385 494.935867 850.390385zM494.935867 850.390385"
+                                                 p-id="4433" fill="#d81e06"></path>
+                                       </svg>
+                                   </a>
+
+
+                               </div></td>
+                                <td>  <ul class="kucun">
+                                    <li><span>电商:</span> {{item.num_ds_ck}}</li>
+                                    <li><span>大仓:</span> {{item.num_gs_ck}}</li>
+                                    <li><span>商场:</span> {{item.num_gs_shop}}</li>
+                                </ul>
+                                    <!--<div ng-click="showgoodsSkusDialog($event,item.outer_id_ds)">-->
+                                    <!--<span>{{item.num}} </span>-->
+                                    <!--<span class="sui-icon sui-icon-bianji"></span>-->
+                                    <!--</div>-->
+                                    <div ng-repeat="i in item.sku_info"></div></td>
+                                <td><div class="timeline">
+                                    <ul>
+
+                                        <li class="timeline-item">
+
+                                            <div class="timeline-item-head step1"><i class="weui_icon weui_icon_success_no_circle timeline-item-checked hide"></i>
+
+                                            </div>
+                                            <div class="timeline-item-head step2"><i class="weui_icon weui_icon_success_no_circle timeline-item-checked hide"></i></div>
+                                            <div class="timeline-item-head-first"><i class="weui_icon weui_icon_success_no_circle timeline-item-checked"></i></div>
+                                            <!--<div class="timeline-item-tail"></div>-->
+                                            <div class="weui_progress">
+                                                <div class="weui_progress_bar">
+                                                    <div class="weui_progress_inner_bar js_progress" style="width: 50%;"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-item">
+                                            <div class="timeline-item-text">已拿货</div>
+                                            <div class="timeline-item-text" style="    text-align: center;">拍摄</div>
+                                            <div class="timeline-item-text" style="text-align: right;">完成</div>
+                                        </li>
+                                    </ul>
+                                </div></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <tm-pagination conf="paginationConf"></tm-pagination>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,99 @@
+<div style="    padding: 15px">
+    <style>
+        .modal-dialog {
+            margin-top: 200px;
+            width: 800px;
+        }
+
+        .groupInput {
+            margin-bottom: 15px;
+        }
+
+    </style>
+    <div style="float: right">
+        <a ng-click="closeModal()" target="_self">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+        </a>
+
+    </div>
+    <radio-group ng-model="formData.selectedId">
+        <radio-button ng-repeat='person in contacts' ng-value="person.id" >  {{person.fullName}} </radio-button>
+    </radio-group>
+
+    <table class="sui-table sui-table-bordering" ng-if="formData.selectedId == 1">
+        <thead>
+        <tr>
+            <th>店铺</th>
+            <th>支出项目</th>
+            <th>备注</th>
+            <th>申请费用</th>
+            
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <select class="no-underline" style="display: inline-block;" ng-model="formData.shop" required placeholder="店铺" >
+                    <option value="依布天猫">依布天猫</option>
+                    <option value="依布一号店">依布一号店</option>
+                    <option value="依布京东">依布京东</option>
+                    <option value="依布C店">依布C店</option>
+                    <option value="科尚C店">科尚C店</option>
+                    <option value="科尚一号店">科尚一号店</option>
+                </select>
+            </td>
+            <td><input type="text" name="class_detail" placeholder="" ng-model="formData.class"></td>
+            <td>
+                <input placeholder="" type="text" name="order_id" ng-model="formData.class_detail">
+            </td>
+            <td>
+                <input placeholder="" name="all_price" ng-model="formData.all_price">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="sui-table sui-table-bordering" ng-if="formData.selectedId == 2">
+        <thead>
+        <tr>
+            <th>店铺</th>
+            <th>淘宝用户名</th>
+            <th>订单号</th>
+            <th>本金</th>
+            <th>日期</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <select ng-model="formData.shop">
+                    <!--<option ng-repeat="x in names">-->
+                    <!--<span ng-if="x === 'tm'">天猫</span>-->
+                    <!--<span ng-if="x === 'tb'">淘宝</span>-->
+                    <!--</option>-->
+                    <option value="tm">天猫</option>
+                    <option value="tb">淘宝</option>
+                </select>
+            </td>
+            <td><input type="text" name="buyer_nick" placeholder="" ng-model="formData.buyer_nick"></td>
+            <td>
+                <input placeholder="" type="text" name="order_id" ng-model="formData.order_id">
+            </td>
+            <td>
+                <input placeholder="" name="order_money" ng-model="formData.order_money">
+            </td>
+            <td>
+
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <button style="background: red;color: white;    float: right;"
+               ng-click="yesToPush(formData)">
+        确定
+    </button>
+
+</div>

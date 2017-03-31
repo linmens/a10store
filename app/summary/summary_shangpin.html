@@ -1,0 +1,63 @@
+
+<section class="LayoutLayoutManager__main SummaryHuopin" cg-busy="myPromise">
+
+    <div id="core-index" class="CoreIndexCoreIndex__root ebase-Card__root" data-card-id="core-index"
+         data-spm="C_core-index" data-ebase="Card">
+        <div class="ebase-Card__headerWrapper"><h4 class="ebase-Card__title">商品总览</h4>
+            <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                <div class="pull-right ebase-CardLink__root">
+                    <div class="operation-btns pull-right">
+                        <div class="ui-switch btn-group-switch">
+                            <ul class="ui-switch-menu">
+                                <li class="ui-switch-link ui-switch-item" ng-click="changePage( m,$event)"
+                                    ng-repeat="m in menus"
+                                    ng-class="{active: seasonActive == m}"><a>{{m}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="ui-download">
+                            <a class="btn-dropdown btn btn-blank forExcel" style="margin: 10px;" class="layui-btn layui-btn-primary" ng-csv="shangpindata"
+                               csv-header="['品类', '2017', '2016','2015','2014','2013','2012','2011','总计']" filename="2016年商品销量.csv"><i class="icon-download"></i>
+                                <span class="val">下载2016年商品销量</span></a>
+                        </div>
+                    </div>
+                </div>
+                <span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" style="margin-top: 20px;">
+            <div class="sui-modal-content" >
+                <table class="sui-table sui-table-bordering" >
+                    <caption>2016年商品销量</caption>
+                    <thead>
+                    <tr>
+                        <th>品类</th>
+                        <th>2017</th>
+                        <th>2016</th>
+                        <th>2015</th>
+                        <th>2014</th>
+                        <th>2013</th>
+                        <th>2012</th>
+                        <th>2011</th>
+                        <th>总计</th>
+                    </tr>
+
+                    </thead>
+                    <tbody cg-busy="isReload">
+                    <tr ng-repeat="col in shangpindata">
+                        <td >{{col.title}}</td>
+                        <td >{{col.year_2017}}</td>
+                        <td >{{col.year_2016}}</td>
+                        <td >{{col.year_2015}}</td>
+                        <td >{{col.year_2014}}</td>
+                        <td >{{col.year_2013}}</td>
+                        <td >{{col.year_2012}}</td>
+                        <td >{{col.year_2011}}</td>
+                        <td >{{col.year_all}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>

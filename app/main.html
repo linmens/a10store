@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<article class="main LayoutLayoutManager__root">
+    <div class="SLiveIndexSLiveIndex__root ebase-Card__root" style="width: 1200px;max-width: 100%">
+        <!-- 文件上传的成功后的显示 -->
+        <!-- ngIf: uploaderInfo.fileName -->
+        <!--<div id="uploader" class="wu-example">-->
+        <!--&lt;!&ndash;用来存放文件信息&ndash;&gt;-->
+        <!--<div id="thelist" class="uploader-list"></div>-->
+        <!--<div class="btns">-->
+        <!--<div id="picker">选择文件</div>-->
+        <!--<button id="ctlBtn" class="btn btn-default">开始上传</button>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="excelimport-fileInfo ng-scope" ng-if="(uploader.queue.length > 0)" ng-repeat="item in uploader.queue" ng-class="{'success': cv.uploaderStatus == 'success', 'error': cv.uploaderStatus == 'error'}" style="">
+            <span class="excelimport-file ng-binding"> <i></i> {{item.file.name}} </span>
+            <!-- ngIf: uploaderInfo.fileName -->
+            <a ng-disabled="!item.isUploading" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" class="excelimport-remove" ng-if="!fileName" href="javascript:;"> 上传 </a>
+            <a ng-disabled="!item.isUploading" ng-click="item.cancel()" class="excelimport-remove" ng-if="!fileName" href="javascript:;"> 取消 </a> <a ng-disabled="!item.isUploading" ng-click="item.remove()"
+                                                                                                                                                     class="excelimport-remove" ng-if="!fileName" href="javascript:;"> 删除 </a>
+            <div ng-if="item.isUploading">
+                上传中...
+            </div>
+            <div ng-if="item.index!=null&&item.isSuccess&&!item.isUploading">
+                正在更新中... {{item.index}}%
+            </div>
+            <div ng-if="item.index==100">更新成功！</div>
+            <div class="oui-progress oui-progress-primary" ng-class="{'oui-progress-danger':item.index!=null,'oui-progress-success':item.index ==100}" style="margin-bottom: 0;">
+                <div ng-if="item.index==null" class="bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                <div ng-if="item.index!=null" class="bar" role="progressbar" ng-style="{ 'width': item.index + '%' }"></div>
+            </div>
+            <!-- end ngIf: uploaderInfo.fileName -->
+        </div>
+        <div class="" style="text-align: center;padding: 20px;" ng-if="(uploader.queue.length > 0)">
+            <button class="layui-btn layui-btn-primary" ng-click="uploader.uploadAll()" >上传全部</button>
+        </div>
+    </div>
+    <div class="SLiveIndexSLiveIndex__root ebase-Card__root">
+        <div class="ebase-Card__headerWrapper" style="margin-bottom: 20px">
+            <h4 class="ebase-Card__title" >导入数据 </h4>
+            <div class="ebase-CardHeader__root">
+
+                <div class="pull-right ebase-CardLink__root">
+
+                    <div class="operation-btns pull-right">
+                        <div class="ui-switch btn-group-switch">
+                            <ul class="ui-switch-menu">
+                                <li class="ui-switch-link ui-switch-item" ng-click="changePage( sdState,$event)"
+                                    ng-repeat="sdState in pintai"
+                                    ng-class="{active: iamPinactive == sdState.pin}"><a>{{sdState.pin}}</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                   </div>
+
+            </div>
+        </div>
+        <div class="ebase-CardContent__root" data-ebase="CardContent">
+            <div class="pull-left ebase-CardLink__root" data-ebase="CardLink" style="margin-bottom: 20px;">
+                <div class="ui-combopanel inline-combopanel">
+                    <div class="ui-combopanel-panel">
+                        <div class="ui-combopanel-groups">
+                            <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->条件
+                                <!-- /react-text --><!-- react-text: 199 -->：
+                                <!-- /react-text --></span>
+                                <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="u in uploadJson"
+                                                      ng-class="{'selected':iamSelected==u.text}" ng-click="checkUpload(u,'card2')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{u.text}}</span>
+                                                </span>
+                                </div>
+                            </div>
+                        </div><!-- react-text: 210 --><!-- /react-text --></div>
+                </div>
+            </div>
+            <div class="ebase-Table__root" style="clear: both;">
+                <div>
+                    <a  href="javascript:;" class="ebase-Tips__dsTipsBtn uploadA" ng-if="!isTongbu">
+
+                        <input type="file" class="upload"  multiple="multiple" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" nv-file-select="" uploader="uploader">
+                        <span>{{iamSelected}}</span>
+                    </a>
+                    <button  href="javascript:;" class="oui-btn-primary oui-btn-sm oui-btn" ng-class="{'disabled':isUpdating}"  ng-if="isTongbu" ng-click="update()" ng-disabled="isUpdating">
+                       {{iamSelected}}
+                        <span ng-if="isUpdating">{{thisIndex}}%</span>
+                    </button>
+                </div>
+                <h3 style="margin-top: 10px;" ng-if="iamSelected!='同步库存'">
+                    导入文件示例：
+                    <a ng-href="{{templeUrl}}" target="_blank">
+                        下载示例文件
+                    </a>
+                </h3>
+                <div style="font-size: 18px;margin-top: 10px;" ng-if="iamSelected!='同步库存'">
+                    <p>丽晶报表系统 - 数据分析 - 库存 - 可用库存报表</p>
+                    <p>输出条件选择：货号，颜色编码，数量，尺码</p>
+                    <p>基本条件：货号 搜索Y开头商品</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+<!--<div class="seller-module-layout grid-l5m0r5 clearfix">-->
+    <!--<div class="J_SModule seller-module-box seller-mod-8">-->
+        <!--<div class="hd movable J_MoveMod">-->
+            <!--<h1>待办事项</h1>-->
+            <!--<div class="hd-acts">-->
+
+                <!--&lt;!&ndash;<a href="javascript:void(0);" class="drag-btn"><span class="tip">按住拖拽来改变模块位置</span></a>&ndash;&gt;-->
+
+
+                <!--<a href="javascript:void(0);" class="J_RemoveMod close-btn">-->
+                    <!--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">-->
+                        <!--<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>-->
+                    <!--</svg>-->
+                <!--</a>-->
+
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="bd J_AsyncMod" data-name="seller_todo_list" data-height="490" data-id="8" data-type="1"-->
+             <!--data-spm="1998679132" data-uri="/ajax/widget.do?name=seller_todo_list" style="height: auto;">-->
+            <!--&lt;!&ndash; start of seller-todo-list &ndash;&gt;-->
+            <!--<div class="seller-todo-list">-->
+                <!--<ul class="todo-list">-->
+
+                    <!--<li class="category J_TodoCategory category-close" data-height="43" style="height: auto;">-->
+                        <!--<h2>表格提醒<b class="close"></b><b class="open"></b></h2>-->
+                        <!--<ol class="clearfix">-->
+                            <!--<li><a ui-sref-active="active" ui-sref="all_goods"-->
+                                   <!--class="item-value attention-value"><span class="todo-item-title">待上传表格: </span><span-->
+                                    <!--class="todo-item-value">{{all_data.update_excel_num}}</span></a></li>-->
+                            <!--<li><a ui-sref-active="active" ui-sref="peihuo"-->
+                                   <!--class="item-value attention-value"><span class="todo-item-title">待配货: </span><span-->
+                                    <!--class="todo-item-value">{{all_data.peihuo_num}}</span></a></li>-->
+
+                        <!--</ol>-->
+                    <!--</li>-->
+
+
+                    <!--<li class="category  J_TodoCategory category-close">-->
+                        <!--<h2>宝贝管理<b class="close"></b><b class="open"></b></h2>-->
+                        <!--<ol class="clearfix">-->
+                            <!--<li><a ui-sref-active="active" ui-sref="all_goods({menuType:'low'})"-->
+                                   <!--class="item-value attention-value"><span-->
+                                    <!--class="todo-item-title">低库存产品: </span><span class="todo-item-value">95</span></a>-->
+                            <!--</li>-->
+                            <!--<li><a ui-sref-active="active" ui-sref="all_goods"-->
+                                   <!--class="item-value attention-value"><span-->
+                                    <!--class="todo-item-title">宝贝总数: </span><span class="todo-item-value">{{all_data.goods_num}}</span></a>-->
+                            <!--</li>-->
+                            <!--<li><a ui-sref-active="active" ui-sref="all_goods"-->
+                                   <!--target="_blank" class="item-value attention-value"><span-->
+                                    <!--class="todo-item-title">出售中的宝贝: </span><span class="todo-item-value">{{all_data.onsale_tm_num}}</span></a>-->
+                            <!--</li>-->
+                            <!--<li><a ui-sref-active="active" ui-sref="all_goods"-->
+                                   <!--class="item-value attention-value"><span-->
+                                    <!--class="todo-item-title">仓库中的宝贝: </span><span class="todo-item-value">{{all_data.instock_num}}</span></a>-->
+                            <!--</li>-->
+
+                        <!--</ol>-->
+                    <!--</li>-->
+                    <!--<li class="category J_TodoCategory category-close">-->
+                        <!--<h2>报表提醒<b class="close"></b><b class="open"></b></h2>-->
+                        <!--<ol class="clearfix">-->
+                            <!--<li><a-->
+                                    <!--class="item-value attention-value"><span-->
+                                    <!--class="todo-item-title">周报: </span><span class="todo-item-value">{{all_data.peihuo_num}}</span></a>-->
+                            <!--</li>-->
+
+                        <!--</ol>-->
+                    <!--</li>-->
+                    <!--<li class="category last category-close">-->
+                        <!--<h2>报销提醒<b class="close"></b><b class="open"></b></h2>-->
+                        <!--<ol class="clearfix">-->
+                            <!--<li><a ui-sref-active="active" ui-sref="caiwu.feiyong"-->
+                                   <!--class="item-value attention-value"><span-->
+                                    <!--class="todo-item-title">未报销: </span><span class="todo-item-value">{{all_data.weibaoxiao_num}}</span></a>-->
+                            <!--</li>-->
+
+                        <!--</ol>-->
+                    <!--</li>-->
+
+
+                <!--</ul>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; end of seller-todo-list &ndash;&gt;-->
+
+        <!--</div>-->
+    <!--</div>-->
+
+
+<!--</div>-->
+
+</body>
+</html>

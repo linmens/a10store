@@ -1,0 +1,379 @@
+<article class="main LayoutLayoutManager__root" style="width: 100%">
+    <div class="ebase-CommonFilter__filter">
+        <div class="screen-sticky  " data-ebase="ScreenSticky" style="top: 0px;">
+            <div class="common-filter" data-ebase="common-filter">
+                <div class="ebase-DayPicker__root" data-ebase="DayPicker">
+                    <a href="javascript: void(0);" class="ebase-DayPicker__btn" ng-click="setRange()"><i
+                            class="oui-icon oui-icon-angle-left"></i>前一天
+                    </a><span class="ebase-DayPicker__calendar"><div class="oui-calendar-trigger oui-popup-trigger"><i
+                        class="oui-icon oui-icon-calendar"></i>
+                     <input date-range-picker id="daterange3" name="daterange3" type="text" ng-model="date"
+                            options="opts" readonly required/>
+                </div></span><a href="javascript: void(0);" class="ebase-DayPicker__btn" ng-disabled="!canClickbefore"
+                                ng-click="setbeforeRange()"><!-- react-text: 340 -->后一天
+                    <!-- /react-text --><i class="oui-icon oui-icon-angle-right"></i></a></div>
+            </div>
+        </div>
+    </div>
+    <div class="SLiveIndexSLiveIndex__root ebase-Card__root">
+        <div class="ebase-Card__headerWrapper" style="margin-bottom: 20px">
+            <h4 class="ebase-Card__title">会员数据 </h4>
+            <div class="ebase-CardHeader__root">
+
+                <div class="pull-right ebase-CardLink__root">
+                    <div class="operation-btns pull-right">
+                        <div class="ui-switch btn-group-switch">
+                            <ul class="ui-switch-menu">
+                                <li class="ui-switch-link ui-switch-item" ng-click="changePage( m,$event)"
+                                    ng-repeat="m in menus"
+                                    ng-class="{active: dingdanActive == m}"><a>{{m}}</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ebase-CardContent__root" data-ebase="CardContent">
+            <tm-pagination conf="paginationConf"></tm-pagination>
+            <div class="ebase-Table__root">
+                <div class="pull-left ebase-CardLink__root" data-ebase="CardLink" style="margin-bottom: 20px;">
+                    <div class="ui-combopanel inline-combopanel">
+                        <div class="ui-combopanel-panel">
+                            <div class="ui-combopanel-groups">
+                                <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->条件
+                                    <!-- /react-text --><!-- react-text: 199 -->：
+                                    <!-- /react-text --></span>
+                                    <div class="group clearfix">
+                                        <form action="" method="POST">
+                                            <select name="province" class="province" ng-init="province.id='0'"
+                                                    ng-model="province.id"
+                                                    ng-change="provinceChange(province.id);city.id='0';"
+                                                    ng-options="id as name for (id,name) in provinceArr"></select>
+                                            <select name="city" class="city" ng-init="city.id='0'" ng-model="city.id"
+                                                    ng-change="cityChange(city.id);"
+                                                    ng-options="id as name for (id,name) in getCityArr"></select>
+                                        </form>
+                                        <span class="checkbox" ng-repeat="u in uploadJson"
+                                              ng-class="{'selected':iamSelected==u.text}"
+                                              ng-click="checkUpload(u,'card2')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{u.text}}</span>
+                                                </span>
+                                    </div>
+                                </div>
+                            </div><!-- react-text: 210 --><!-- /react-text --></div>
+                    </div>
+                </div>
+                <table class="ebase-Table__table">
+                    <thead class="ebase-Table__thead">
+                    <tr>
+                        <!--<th>订单号</th>-->
+                        <th>收货人</th>
+                        <th>客户级别</th>
+                        <th>手机号码</th>
+                        <th>省</th>
+                        <th>市</th>
+                        <th>操作</th>
+                        <!--<th>付款状态</th>-->
+                        <!--<th>下单时间</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in users">
+                        <!--<td>{{user.user_id}}</td>-->
+                        <!--<td>{{user.adress_name}}</td>-->
+                        <td>{{user.buyer_nick}}</td>
+                        <td>
+                            <div class="label-list label-body">
+                                <ul>
+                                    <li id="52942023">{{user.state_shuashou}}</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>{{user.buyer_phone}}</td>
+                        <td>{{user.adress_sheng}}</td>
+                        <td>{{user.adress_shi}}</td>
+                        <td>
+                            <div class="label-list label-body">
+                                <ul>
+                                    <li ng-click="sendSMS(user)">发送短信</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <!--<td>{{user.wl_no}}</td>-->
+                        <!--<td>{{user.state_user_pingtai}}</td>-->
+                        <!--<td>{{user.time_xiadan}}</td>-->
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="kehuModel.html">
+        <style>
+            blockquote, body, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, li, menu, ol, p, pre, td, textarea, th, ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-form-fields > li {
+                padding: 0 0 20px 106px;
+                min-height: 36px;
+                vertical-align: top;
+            }
+
+            .mods-promo-common-settings .phone-view-container {
+                position: relative;
+            }
+
+            .page-crm-sms-mobile .ui-form-fields > li {
+                padding: 0 0 12px 106px;
+            }
+
+            .page-crm-sms-mobile .ui-form-fields {
+                padding: 0;
+            }
+
+            .ui-form-fields {
+                padding: 16px 0 4px;
+            }
+
+            .ui-form-fields li > label {
+                color: #666;
+                margin-left: -106px;
+                width: 94px;
+                position: absolute;
+                text-align: right;
+            }
+
+            .ui-sms-editor {
+                position: relative;
+                width: 580px;
+                border: 1px solid #d3d4e2;
+                box-sizing: border-box;
+            }
+
+            .ui-sms-editor-footer, .ui-sms-editor-header {
+                padding: 0 16px;
+                line-height: 40px;
+                background-color: #eff0f9;
+                font-size: 12px;
+            }
+
+            .ui-sms-editor-header .ui-sms-label, .ui-sms-editor-header > span {
+                margin-right: 8px;
+            }
+
+            .page-crm-sms-mobile .ui-sms-editor-body .ui-textarea {
+                width: 100%;
+                height: 10em;
+            }
+
+            .mods-promo-common-settings .ui-sms-editor-body .ui-textarea {
+                width: 100%;
+                height: 10em;
+            }
+
+            .ui-sms-editor-body .ui-textarea {
+                width: 100%;
+                height: 10em;
+                border: none;
+            }
+
+            .ui-textarea {
+                border: 1px solid #d3d4e2;
+                color: #333;
+                font-size: 14px;
+                padding: 12px;
+                height: 6em;
+                width: 30em;
+                overflow: auto;
+                outline: none;
+                vertical-align: top;
+                resize: vertical;
+            }
+
+            button, input, optgroup, option, select, textarea {
+                font-family: inherit;
+                font-size: inherit;
+                font-style: inherit;
+                font-weight: inherit;
+            }
+
+            .ui-sms-editor-footer {
+                text-align: right;
+            }
+
+            .ui-sms-editor-footer, .ui-sms-editor-header {
+                padding: 0 16px;
+                line-height: 40px;
+                background-color: #eff0f9;
+                font-size: 12px;
+            }
+
+            .ui-sms-editor-footer .ui-sms-sign {
+                position: absolute;
+            }
+
+            .ui-sms-editor-footer select.ui-select {
+                height: 32px;
+                font-size: 12px;
+                margin-top: 4px;
+                vertical-align: top;
+                padding: 0 8px;
+            }
+
+            select.ui-select-small {
+                width: 115px;
+            }
+
+            select.ui-select {
+                width: 180px;
+                height: 40px;
+                vertical-align: middle;
+                line-height: normal;
+                border: 1px solid #c8c8c8;
+                border-radius: 2px;
+                color: #333;
+                background-color: #fff;
+                font-size: 14px;
+            }
+
+            .ui-select {
+                display: inline-block;
+                color: #333;
+                font-size: 14px;
+                height: 40px;
+                width: 180px;
+                position: relative;
+                vertical-align: top;
+                text-align: left;
+            }
+
+            .ui-sms-editor-footer em {
+                color: #f22821;
+            }
+
+            .ui-sms-editor-footer .billing-rule {
+                position: relative;
+                color: #45a3f8;
+            }
+
+            .ui-sms-editor-footer .billing-rule .ui-tooltip {
+                display: none;
+                top: -170px;
+                left: -110px;
+                width: 260px;
+                text-align: left;
+            }
+
+            .ui-tooltip.top {
+                padding-bottom: 12px;
+            }
+
+            .ui-tooltip {
+                position: absolute;
+                z-index: 29;
+            }
+
+            .ui-sms-editor-header .ui-sms-label-tmpl {
+                float: right;
+                margin-right: 0;
+            }
+            address, caption, cite, code, dfn, em, th, var {
+                font-style: normal;
+                font-weight: 400;
+            }
+            .ui-sms-preview {
+                font-size: 14px;
+                position: absolute;
+                padding: 88px 32px 0 72px;
+                right: -312px;
+                top: 0;
+                box-sizing: border-box;
+                width: 284px;
+                background: url(https://alicdn.huanleguang.com/tbv3/img_v5/ui/sms_editor/phone-previewv2.png) no-repeat;
+            }.ui-sms-preview .ui-sms-content {
+                 margin: 0 auto;
+                 padding: 8px 12px;
+                 min-height: 125px;
+                 max-height: 220px;
+                 line-height: 23px;
+                 border-radius: 4px;
+                 background-color: #dfe0e9;
+                 word-break: break-all;
+                 overflow-y: auto;
+             }.ui-sms-preview:after {
+                  content: "";
+                  position: absolute;
+                  bottom: 0;
+                  right: -16px;
+                  padding: 0 48px;
+                  width: 100%;
+                  border-bottom: 1px solid #d3d4e2;
+              }.page-crm-sms-mobile #mobile_test {
+                   width: 178px;
+                   height: 40px;
+               }
+
+        </style>
+        <p>发送至：{{userbuyer}}</p>
+        <div class="mods-promo-common-settings">
+            <ul class="ui-form-fields">
+                <li class="phone-view-container">
+                    <label class="ui-form-label" for="message_content">短信内容：</label>
+                    <div class="ui-form-fill">
+                        <div class="ui-sms-editor">
+                            <div class="ui-sms-editor-header">
+                                <span>插入</span>
+                                <a href="javascript:;" ng-repeat="label in smsOptions.labels" ng-click="sign(label)"
+                                   class="ui-sms-label ui-sms-label-placeholder" ng-class="{'ui-sms-label-tmpl':$last}">#{{label}}#</a>
+                            </div>
+                            <div class="ui-sms-editor-body"><textarea
+                                    class="ui-textarea ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-touched"
+                                    name="sms_content" ng-model="smsOptions.content" ng-blur="getCursorPosition($event)"
+                                    ng-focus="checkName()"></textarea>
+                            </div>
+                            <div class="ui-sms-editor-footer">
+                                <div class="ui-sms-sign"><span>签名</span>
+                                    <select ng-model="smsOptions.sign_content" class="ui-select ui-select-small ui-select-smseditor">
+                                        <option ng-repeat="x in diySigns" ng-value="{{x.id}}">{{x.displayName}}</option>
+                                    </select>
+                                    <a href="javascript:;" ng-click="diySignContent()">自定义签名</a></div>
+                                <span>已输入 <em class="ng-binding">{{smsOptions.content.length||0}}</em> 个字，共计 <em class="ng-binding">1</em> 条短信</span>
+                                <span class="billing-rule"> 计费规则 <div class="ui-tooltip primary top"> <i
+                                        class="ui-tooltip-arrow"></i> <div class="ui-tooltip-inner"> <p>1、70字计1条短信收费，超出70字按67字每条计。</p> <p>2、一个汉字，字母或标点都算一个字。</p> <p>3、自动替换的内容以实际发送为准，有可能超过默认字数。</p> <p>4、受短信运营商限制，签名和退订回T，包含在字数中</p> </div> </div> </span>
+                            </div>
+                            <div class="ui-sms-preview"> <div class="ui-sms-content ng-binding">【{{smsOptions.sign_content}}】
+                                <span >{{smsOptions.content}}</span>&nbsp;退订回T</div> <i class="icon-sms-tail"></i> </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <label class="ui-form-label" for="mobile_test">测试手机：</label>
+                    <div class="ui-form-fill ui-form-stick">
+                        <span>默认为15088909294</span>
+                        <div class="input-group" >
+                            <input type="text" class="form-control" name="mobile_test" value="15088909294" placeholder="请您输入要测试的手机号码" ng-model="testPhone" ng-class="{'ui-input-error': hasError}" ng-focus="hasError=false;" id="mobile_test">
+                            <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="validCheck()" ng-disabled="!smsOptions.content.length">发送测试</button>
+          </span>
+                        </div>
+                        <!--<button type="button" class="ui-btn ui-btn-large ui-btn-light" ng-click="checkMobileNumber(value)" ng-disabled="hasError" ng-class="{'ui-btn-light': !Model.mobileTest.hasError, 'border-red': Model.mobileTest.hasError}">-->
+
+                        <!--</button>-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <ul class="ui-form-fields">
+            <li class="btns">
+                <button type="button" class="btn btn-primary" ng-click="validSend()" ng-disabled="!smsOptions.content.length">发送</button>
+            </li>
+        </ul>
+    </script>
+</article>

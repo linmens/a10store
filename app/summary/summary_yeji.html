@@ -1,0 +1,365 @@
+<section class="LayoutLayoutManager__main" >
+    <div id="live-index" class="SLiveIndexSLiveIndex__root ebase-Card__root"
+         data-card-id="live-index" data-spm="C_live-index" data-ebase="Card">
+        <div class="ebase-Card__headerWrapper" style="margin-bottom: 20px"><h4 class="ebase-Card__title">
+            电商总览</h4>
+            <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                <div class="pull-right ebase-CardLink__root" data-ebase="CardLink"><a class="ebase-link-second"
+                                                                                      data-spm="d108909">
+                    <!-- react-text: 213 --><!-- /react-text --><i
+                        class="oui-icon oui-icon-angle-right"></i></a></div>
+                <span class="SLiveIndexSLiveIndex__industry SLiveIndexSLiveIndex__industry pull-right">
+                           </span><span
+                    class="SLiveIndexSLiveIndex__updateTime SLiveIndexSLiveIndex__updateTime pull-right"><!-- react-text: 219 -->更新时间：{{reFresh|date:'yyyy-MM-dd hh:mm:ss'}}
+                <!-- /react-text --></span><span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" cg-busy="card1Promise">
+            <ul class="data-indices">
+                <li class="data-index">
+                    <div class="name sans-serif">今年总销售</div>
+                    <div class="value num">{{topAll.all_sales_jn}}万</div>
+                </li>
+
+                <li class="data-index">
+                    <div class="name sans-serif">已用时间</div>
+                    <div class="value num">{{topAll.time_use}}</div>
+                </li>
+                <li class="data-index">
+                    <div class="name sans-serif">指标完成率</div>
+                    <div class="value num">{{topAll.wanchenglv_jn}}</div>
+                </li>
+                <li class="data-index">
+                    <div class="name sans-serif">今年指标</div>
+                    <div class="value num">{{topAll.zhibiao_jn}}万</div>
+                </li>
+                <li class="data-index">
+                    <div class="name sans-serif">剩余指标</div>
+                    <div class="value num">{{topAll.shengyu_zhibiao}}万</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="core-index" class="CoreIndexCoreIndex__root ebase-Card__root" cg-busy="myPromise">
+        <div class="ebase-Card__headerWrapper"><h4 class="ebase-Card__title">指标总览</h4>
+            <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                <div class="pull-right ebase-CardLink__root" data-ebase="CardLink">
+                    <div class="ui-combopanel inline-combopanel">
+                        <div class="ui-combopanel-panel">
+                            <div class="ui-combopanel-groups">
+                                <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->条件
+                                    <!-- /react-text --><!-- react-text: 199 -->：
+                                    <!-- /react-text --></span>
+                                    <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in opSelected"
+                                                      ng-class="{'selected':iamSelected==s.title}" ng-click="openTo(s,'card2')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s.title}}</span>
+                                                </span>
+                                    </div>
+                                </div>
+                            </div><!-- react-text: 210 --><!-- /react-text --></div>
+                    </div>
+                </div>
+                <span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" style="margin-top: 20px;">
+            <div class="CoreIndexCoreIndex__mainSwitch">
+                <!--<span class="CoreIndexCoreIndex__switchLeft"><i class="oui-icon oui-icon-angle-left"></i></span>-->
+                <!--<span class="CoreIndexCoreIndex__switchRight"><i class="oui-icon oui-icon-angle-right"></i></span>-->
+                <div class="oui-tabswitch">
+
+                    <ul class="ui-tabswitch-contents">
+                        <li ng-click="summary_change(o)" ng-class="{active:ischange == o.title}"
+                            ng-repeat="o in opChange" class="oui-tabswitch-link oui-tabswitch-content"><a
+                                data-spm-anchor-id="a21ag.8106233.C_core-index.3">
+                            <div class="CoreIndexCoreIndex__index"><p class="CoreIndexCoreIndex__title">
+                                <!-- react-text: 1179 -->{{o.title}}<!-- /react-text --></p>
+                                <p class="CoreIndexCoreIndex__indexValue">{{o.data}}
+                                    <i class="oui-icon" ng-class="{'oui-icon-trend-down':o.data<o.dataqn,'oui-icon-trend-up':o.data>o.dataqn}"></i>
+                                </p>
+                                <p class="CoreIndexCoreIndex__calcIndex"><span>较去年同期</span><span class="CoreIndexCoreIndex__calcIndexNum">{{o.dataqn}}
+                                        </span>
+                                </p>
+                                <p class="CoreIndexCoreIndex__calcIndex"><span>昨日销售</span><span
+                                        class="CoreIndexCoreIndex__calcIndexNum"><!-- react-text: 3108 -->{{o.dayjn}}
+                                    <!-- /react-text --><i class="oui-icon"
+                                                           ng-class="{'oui-icon-trend-down':o.dayjn<o.dayqn,'oui-icon-trend-up':o.dayjn>o.dayqn}"></i></span></p>
+                                <p class="CoreIndexCoreIndex__calcIndex"><span>较去年同日</span><span
+                                        class="CoreIndexCoreIndex__calcIndexNum">{{o.dayqn}}</span></p></div>
+                        </a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <!--<p class="CoreIndexCoreIndex__lastData">最近30天累计：55,161.56</p>-->
+            <div class="CoreIndexCoreIndex__trendChart">
+                <div class="ebase-CompareChart__root">
+                    <div class="ebase-CompareTrendChart__root">
+                        <div class="recharts-responsive-container"
+                             style="width: 100%; height: 100%; position: relative;">
+                            <div id="summaryMain" class="recharts-wrapper"
+                                 style="min-width: 600px;height: 300px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ebase-CommonFilter__filter">
+        <div class="screen-sticky page-header " data-ebase="ScreenSticky" style="top: 0px;">
+            <div class="page-header common-filter" data-ebase="common-filter">
+                <div class="ebase-DayPicker__root" data-ebase="DayPicker" id="DayPicker">
+                    <a class="ebase-DayPicker__btn" ng-repeat="m in summary_month" ng-click="summary_change_month(m)" ng-class="{'DayPickeractive':nowmonth == m.value}">{{m.month}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="s-flow-analysis" class="ebase-Card__root" data-card-id="s-flow-analysis"
+         data-spm="C_s-flow-analysis" data-ebase="Card">
+        <div class="ebase-Card__headerWrapper"><h4 class="ebase-Card__title">每月指标</h4>
+            <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                <div class="pull-right ebase-CardLink__root" data-ebase="CardLink"><a class="ebase-link-second"
+                                                                                      data-spm="d118639">
+                    <!-- react-text: 385 -->
+                    <!-- /react-text --><i class="oui-icon oui-icon-angle-right"></i></a></div>
+                <span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" data-ebase="CardContent" cg-busy="summary_monthCHange">
+            <div>
+                <div class="SFlowAnalysisSFlowAnalysis__sourceTop">
+                    <div class="SFlowAnalysisSFlowAnalysis__topSide">
+                        <div class="SFlowAnalysisSFlowAnalysis__pc">
+                            <header class="SFlowAnalysisSFlowAnalysis__title"><h4>科尚</h4></header>
+                            <div class="SFlowAnalysisSFlowAnalysis__tableWrapper">
+                                <div class="ebase-Table__root" data-ebase="Table">
+                                    <table class="ebase-Table__table">
+                                        <thead class="ebase-Table__thead">
+                                        <tr>
+                                            <th class="ebase-Table__th col-0 col-name "
+                                                style="width: 25%; text-align: left;">店铺
+                                            </th>
+                                            <th class="ebase-Table__th col-1 col-diff "
+                                                style="width: 55%; text-align: left;"><span
+                                                    class="SFlowAnalysisSFlowAnalysis__vistorName">销售额</span>
+                                            </th>
+                                            <th class="ebase-Table__th col-2 col-self "
+                                                style="width: 20%; text-align: right;">完成率
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="ebase-Table__tbodyTr" ng-repeat="d in summary_month_data.ks">
+                                            <td class="ebase-Table__td col-0 col-name col-level-0 ebase-Table__noChildren"
+                                                style="width: 25%; text-align: left;"><i
+                                                    class="oui-icon oui-icon-plus2 ebase-Table__levelExpand"></i>
+                                                {{d.shop}}
+                                            </td>
+                                            <td class="ebase-Table__td col-1 col-diff col-level-0 ebase-Table__noChildren"
+                                                style="width: 55%; text-align: left;">
+                                                <div class="SFlowAnalysisSFlowAnalysis__vistor"><p
+                                                        class="SFlowAnalysisSFlowAnalysis__self"><span
+                                                        class="SFlowAnalysisSFlowAnalysis__uvCount">{{d.zhibiao}}</span><span
+                                                        class="SFlowAnalysisSFlowAnalysis__rule"><i
+                                                        style="width: 100%;"></i></span></p>
+                                                    <p class="SFlowAnalysisSFlowAnalysis__diff"><span
+                                                            class="SFlowAnalysisSFlowAnalysis__uvCount">{{d.sales}}</span><span
+                                                            class="SFlowAnalysisSFlowAnalysis__rule"><i ng-style="wanchenglv"></i></span></p></div>
+                                            </td>
+                                            <td class="ebase-Table__td col-2 col-self col-level-0 ebase-Table__noChildren"
+                                                style="text-align: right;" ng-init="wanchenglv={'width':d.wanchenglv}">
+                                                <div class="SFlowAnalysisSFlowAnalysis__order">
+                                                    <!--<p>2.44%</p>-->
+                                                    <p>{{d.wanchenglv}}</p></div>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="SFlowAnalysisSFlowAnalysis__wireless">
+                            <header class="SFlowAnalysisSFlowAnalysis__title"><h4>依布</h4>
+                                <!--<div class="ebase-CardLink__root" data-ebase="CardLink"><a-->
+                                <!---->
+                                <!--class="ebase-link-second" >-->
+                                <!--流量地图<i class="oui-icon oui-icon-angle-right"></i></a>-->
+                                <!--</div>-->
+                            </header>
+                            <div class="SFlowAnalysisSFlowAnalysis__tableWrapper">
+                                <div class="ebase-Table__root" data-ebase="Table">
+                                    <table class="ebase-Table__table">
+                                        <thead class="ebase-Table__thead">
+                                        <tr>
+                                            <th class="ebase-Table__th col-0 col-name "
+                                                style="width: 25%; text-align: left;">店铺
+                                            </th>
+                                            <th class="ebase-Table__th col-1 col-diff "
+                                                style="width: 55%; text-align: left;"><span
+                                                    class="SFlowAnalysisSFlowAnalysis__vistorName">销售额</span>
+                                            </th>
+                                            <th class="ebase-Table__th col-2 col-self "
+                                                style="width: 20%; text-align: right;">完成率
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="ebase-Table__tbodyTr" ng-repeat="d in summary_month_data.yb">
+                                            <td class="ebase-Table__td col-0 col-name col-level-0 ebase-Table__noChildren"
+                                                style="width: 25%; text-align: left;"><i
+                                                    class="oui-icon oui-icon-plus2 ebase-Table__levelExpand"></i>
+                                                {{d.shop}}
+                                            </td>
+                                            <td class="ebase-Table__td col-1 col-diff col-level-0 ebase-Table__noChildren"
+                                                style="width: 55%; text-align: left;">
+                                                <div class="SFlowAnalysisSFlowAnalysis__vistor"><p
+                                                        class="SFlowAnalysisSFlowAnalysis__self"><span
+                                                        class="SFlowAnalysisSFlowAnalysis__uvCount">{{d.zhibiao}}</span><span
+                                                        class="SFlowAnalysisSFlowAnalysis__rule"><i
+                                                        style="width: 100%;"></i></span></p>
+                                                    <p class="SFlowAnalysisSFlowAnalysis__diff"><span
+                                                            class="SFlowAnalysisSFlowAnalysis__uvCount">{{d.sales}}</span><span
+                                                            class="SFlowAnalysisSFlowAnalysis__rule"><i ng-style="wanchenglv"></i></span></p></div>
+                                            </td>
+                                            <td class="ebase-Table__td col-2 col-self col-level-0 ebase-Table__noChildren"
+                                                style="text-align: right;" ng-init="wanchenglv={'width':d.wanchenglv}">
+                                                <div class="SFlowAnalysisSFlowAnalysis__order">
+                                                    <!--<p>2.44%</p>-->
+                                                    <p>{{d.wanchenglv}}</p></div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="SFlowAnalysisSFlowAnalysis__guide"><span
+                            class="SFlowAnalysisSFlowAnalysis__selfShop">当月指标</span><span
+                            class="SFlowAnalysisSFlowAnalysis__diffShop"><!-- react-text: 441 -->本月已完成
+                        <!-- /react-text --></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ebase-Card__root" data-card-id="s-flow-analysis"
+         data-spm="C_s-flow-analysis" data-ebase="Card">
+        <div class="ebase-Card__headerWrapper"><h4 class="ebase-Card__title">指标明细</h4>
+
+            <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                <!--<span class="pull-right ebase-CardSwitch__root switch-trendswitch" data-ebase="CardSwitch" ng-init="summary_views='单店'">-->
+                <!--<span>-->
+                <!--<span class="ebase-CardSwitch__switchName" ng-click="summary_views='单店'" ng-class="{'ebase-CardSwitch__active':summary_views=='单店'}">单店</span>-->
+                <!--<span class="ebase-CardSwitch__separator">|</span>-->
+                <!--</span>-->
+                <!--<span>-->
+                <!--<span class="ebase-CardSwitch__switchName" ng-click="summary_views='全部';card4_shop_all='科尚'"-->
+                <!--ng-class="{'ebase-CardSwitch__active':summary_views=='全部'}">全部</span>-->
+                <!--</span>-->
+                <!--</span>-->
+                <div class="pull-right ebase-CardLink__root" data-ebase="CardLink">
+                    <div class="ui-combopanel inline-combopanel">
+                        <div class="ui-combopanel-panel">
+                            <div class="ui-combopanel-groups">
+                                <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->品牌
+                                    <!-- /react-text --><!-- react-text: 199 -->：
+                                    <!-- /react-text --></span>
+                                    <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in opSelectedzhibiao.shop"
+                                                      ng-class="{'selected':card4_shop==s.shop}" ng-click="openTocard4_shop(s,'card4')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s.shop}}</span>
+                                                </span>
+                                    </div>
+                                </div>
+                                <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->条件
+                                    <!-- /react-text --><!-- react-text: 199 -->：
+                                    <!-- /react-text --></span>
+                                    <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in opSelectedzhibiao.tiaojian"
+                                                      ng-class="{'selected':card4==s.title}" ng-click="openTocard4(s,'card4')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s.title}}</span>
+                                                </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<a class="ebase-link-second" data-spm="d118639"><i class="oui-icon oui-icon-angle-right"></i></a>-->
+                </div>
+                <span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" data-ebase="CardContent" cg-busy="reGetzhibiaocgBusy">
+            <div>
+                <div class="SFlowAnalysisSFlowAnalysis__sourceTop">
+                    <div class="SFlowAnalysisSFlowAnalysis__topSide">
+                        <div class="SFlowAnalysisSFlowAnalysis__wireless" style="width: 100%">
+                            <header class="SFlowAnalysisSFlowAnalysis__title"><h4>{{card4_shop}}</h4>
+                                <!--<div class="ebase-CardLink__root" data-ebase="CardLink"><a-->
+                                <!---->
+                                <!--class="ebase-link-second" >-->
+                                <!--流量地图<i class="oui-icon oui-icon-angle-right"></i></a>-->
+                                <!--</div>-->
+                            </header>
+                            <div class="SFlowAnalysisSFlowAnalysis__tableWrapper summary_zhibiaomingxi">
+                                <div class="ebase-Table__root">
+                                    <table class="ebase-Table__table">
+                                        <thead class="ebase-Table__thead">
+                                        <tr>
+                                            <th class="ebase-Table__th col-2 col-self" style="text-align: center">店铺
+                                            </th>
+                                            <style>
+                                                .card4monthActive {
+                                                    color: red;
+                                                    font-weight: 800;
+                                                }
+                                            </style>
+                                            <th class="ebase-Table__th col-2 col-self " ng-repeat="ms in summary_month" ng-class="{'card4monthActive':ms.value==nowmonth}">
+                                                {{ms.month}}
+                                            </th>
+                                            <th class="ebase-Table__th col-2 col-self " style="color: red;">合计 ({{summary_zhibiao_data[0].all_zhibiao}})
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="ebase-Table__tbodyTr" ng-repeat="d in summary_zhibiao_data">
+                                            <td class="ebase-Table__td col-0 col-name col-level-0 ebase-Table__noChildren" style="text-align: center">{{d.shop}}</td>
+                                            <td class="ebase-Table__td col-2 col-self col-level-0 ebase-Table__noChildren" ng-repeat="zhi in d.ybzhibiao">
+                                                <!--<div style="display: inline-block"><i style="color: red;margin-left: 5px" ng-if="zhi.success<zhi.m"-->
+                                                <!--class="oui-icon oui-icon-error ebase-IndexCell__errorIcon oui-tooltip-trigger oui-popup-trigger"></i>-->
+                                                <!--</div>-->
+                                                <div style="display: inline-block" class="SFlowAnalysisSFlowAnalysis__order">
+                                                    <p style="color:#0088fe;"  ng-show="zhi.m!=0">{{zhi.m}}</p>
+                                                    <!--{{zhi.m}}-->
+                                                    <p style="color: #00c49f" ng-show="zhi.success!=0">{{zhi.success}}</p>
+                                                    <p style="color: #ff6590" ng-show="zhi.percent!=0">{{zhi.percent}}%</p>
+                                                </div>
+                                            </td>
+                                            <td class="ebase-Table__td col-2 col-self col-level-0 ebase-Table__noChildren">
+                                                <div class="SFlowAnalysisSFlowAnalysis__order">
+                                                    <p style="color:#0088fe;"ng-show="zhi.all!=0">{{d.all}}</p>
+                                                    <p style="color: #00c49f" ng-show="zhi.all_sales!=0">{{d.all_sales}}</p>
+                                                    <p style="color: #ff6590" ng-show="zhi.percent!=0">{{d.percent}}%</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="SFlowAnalysisSFlowAnalysis__guide"><span class="SFlowAnalysisSFlowAnalysis__selfShop">当月指标</span>
+                        <span class="SFlowAnalysisSFlowAnalysis__diffShop">本月已完成</span>
+                        <span class="SFlowAnalysisSFlowAnalysis__diffpercent">本月完成率</span>
+                        <span style="margin-left: 20px;">部门总指标: {{summary_zhibiao_data[0].all_zhibiao}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

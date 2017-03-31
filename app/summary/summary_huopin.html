@@ -1,0 +1,149 @@
+<section class="LayoutLayoutManager__main SummaryHuopin" cg-busy="myPromise">
+    <div id="live-index" class="SLiveIndexSLiveIndex__root ebase-Card__root">
+        <!--<div class="ebase-Card__headerWrapper" style="margin-bottom: 20px"><h4 class="ebase-Card__title">-->
+            <!--周销售总览</h4>-->
+            <!--<div class="ebase-CardHeader__root">-->
+                <!--<div class="pull-right ebase-CardLink__root"><a class="ebase-link-second">-->
+                    <!--&lt;!&ndash; react-text: 213 &ndash;&gt;&lt;!&ndash; /react-text &ndash;&gt;<i-->
+                        <!--class="oui-icon oui-icon-angle-right"></i></a></div>-->
+                <!--<span class="SLiveIndexSLiveIndex__industry SLiveIndexSLiveIndex__industry pull-right">-->
+                           <!--</span><span-->
+                    <!--class="SLiveIndexSLiveIndex__updateTime SLiveIndexSLiveIndex__updateTime pull-right">&lt;!&ndash; react-text: 219 &ndash;&gt;更新时间：{{reFresh|date:'yyyy-MM-dd hh:mm:ss'}}-->
+                <!--&lt;!&ndash; /react-text &ndash;&gt;</span><span></span></div>-->
+        <!--</div>-->
+        <!--<div class="ebase-CardContent__root" data-ebase="CardContent">-->
+            <!--<ul class="data-indices">-->
+                <!--<li class="data-index">-->
+                    <!--<div class="name sans-serif">总</div>-->
+                    <!--<div class="value num">{{topAll.all.num}}件</div>-->
+                    <!--<div class="SummaryHuopininfo">-->
+                        <!--<p >销售占比<span>{{topAll.all.percent}}</span></p>-->
+                        <!--<p>仓库库存<span>{{topAll.all.kc_num}}</span></p>-->
+                        <!--<p>7日库销比<span>{{topAll.all.kxb}}</span></p>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="data-index">-->
+                    <!--<div class="name sans-serif">春装</div>-->
+                    <!--<div class="value num">{{topAll.spring.num}}件</div>-->
+                    <!--<div class="SummaryHuopininfo">-->
+                        <!--<p >销售占比<span>{{topAll.spring.percent}}</span></p>-->
+                        <!--<p>仓库库存<span>{{topAll.spring.kc_num}}</span></p>-->
+                        <!--<p>7日库销比<span>{{topAll.spring.kxb}}</span></p>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="data-index">-->
+                    <!--<div class="name sans-serif">夏装</div>-->
+                    <!--<div class="value num">{{topAll.summer.num}}件</div>-->
+                    <!--<div class="SummaryHuopininfo">-->
+                        <!--<p >销售占比<span>{{topAll.summer.percent}}</span></p>-->
+                        <!--<p>仓库库存<span>{{topAll.summer.kc_num}}</span></p>-->
+                        <!--<p>7日库销比<span>{{topAll.summer.kxb}}</span></p>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="data-index">-->
+                    <!--<div class="name sans-serif">秋装</div>-->
+                    <!--<div class="value num">{{topAll.autumn.num}}件</div>-->
+                    <!--<div class="SummaryHuopininfo">-->
+                        <!--<p >销售占比<span>{{topAll.autumn.percent}}</span></p>-->
+                        <!--<p>仓库库存<span>{{topAll.autumn.kc_num}}</span></p>-->
+                        <!--<p>7日库销比<span>{{topAll.autumn.kxb}}</span></p>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="data-index">-->
+                    <!--<div class="name sans-serif">冬装</div>-->
+                    <!--<div class="value num">{{topAll.winter.num}}件</div>-->
+                    <!--<div class="SummaryHuopininfo">-->
+                        <!--<p >销售占比<span>{{topAll.winter.percent}}</span></p>-->
+                        <!--<p>仓库库存<span>{{topAll.winter.kc_num}}</span></p>-->
+                        <!--<p>7日库销比<span>{{topAll.winter.kxb}}</span></p>-->
+                    <!--</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+    <div id="core-index" class="CoreIndexCoreIndex__root ebase-Card__root" data-card-id="core-index"
+         data-spm="C_core-index" data-ebase="Card">
+        <div class="ebase-Card__headerWrapper"><h4 class="ebase-Card__title">周销售总览</h4>
+            <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                <div class="pull-right ebase-CardLink__root" data-ebase="CardLink">
+                    <div class="ui-combopanel inline-combopanel">
+                        <div class="ui-combopanel-panel">
+                            <div class="ui-combopanel-groups">
+                                <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->条件
+                                    <!-- /react-text --><!-- react-text: 199 -->：
+                                    <!-- /react-text --></span>
+                                    <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in opSelected"
+                                                      ng-class="{'selected':iamSelected==s.title}" ng-click="openTo(s,'card2')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s.title}}</span>
+                                                </span>
+                                    </div>
+                                </div>
+                            </div><!-- react-text: 210 --><!-- /react-text --></div>
+                    </div>
+                </div>
+                <span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" style="margin-top: 20px;">
+            <div class="CoreIndexCoreIndex__mainSwitch">
+                <div class="oui-tabswitch">
+                    <ul class="ui-tabswitch-contents">
+                        <!--<li  class="oui-tabswitch-link oui-tabswitch-content" ng-click="summary_change('总计')" ng-class="{active:ischange == json.all[0].name}" >-->
+                            <!--<div class="CoreIndexCoreIndex__index">-->
+                                <!--<p class="CoreIndexCoreIndex__title">{{json.all[0].name}}</p>-->
+                                <!--<p class="CoreIndexCoreIndex__indexValue">{{json.all[0].value}}-->
+                                    <!--<i class="oui-icon" ng-class="{'oui-icon-trend-down':o.data<o.dataqn,'oui-icon-trend-up':o.data>o.dataqn}"></i>-->
+                                <!--</p>-->
+                                <!--<p class="CoreIndexCoreIndex__calcIndex">-->
+                                    <!--<span>销售占比</span>-->
+                                    <!--<span class="CoreIndexCoreIndex__calcIndexNum">{{json.all[0].percent}}</span>-->
+                                <!--</p>-->
+                                <!--<p class="CoreIndexCoreIndex__calcIndex">-->
+                                    <!--<span>仓库库存</span>-->
+                                    <!--<span class="CoreIndexCoreIndex__calcIndexNum">{{json.all[0].kucun}}-->
+                                    <!--<i class="oui-icon" ng-class="{'oui-icon-trend-down':o.dayjn<o.dayqn,'oui-icon-trend-up':o.dayjn>o.dayqn}"></i></span>-->
+                                <!--</p>-->
+                                <!--<p class="CoreIndexCoreIndex__calcIndex"><span>7日库销比</span>-->
+                                    <!--<span class="CoreIndexCoreIndex__calcIndexNum">{{json.all[0].day}}</span>-->
+                                <!--</p>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <li ng-click="summary_change(o)" ng-class="{active:ischange == o.name}" ng-repeat="o in json.all" class="oui-tabswitch-link oui-tabswitch-content">
+                            <div class="CoreIndexCoreIndex__index">
+                                <p class="CoreIndexCoreIndex__title">{{o.name}}</p>
+                                <p class="CoreIndexCoreIndex__indexValue">{{o.value}}
+                                    <i class="oui-icon" ng-class="{'oui-icon-trend-down':o.data<o.dataqn,'oui-icon-trend-up':o.data>o.dataqn}"></i>
+                                </p>
+                                <p class="CoreIndexCoreIndex__calcIndex">
+                                    <span>销售占比</span>
+                                    <span class="CoreIndexCoreIndex__calcIndexNum">{{o.percent}}</span>
+                                </p>
+                                <p class="CoreIndexCoreIndex__calcIndex">
+                                    <span>仓库库存</span>
+                                    <span class="CoreIndexCoreIndex__calcIndexNum">{{o.kucun}}
+                                    <i class="oui-icon" ng-class="{'oui-icon-trend-down':o.dayjn<o.dayqn,'oui-icon-trend-up':o.dayjn>o.dayqn}"></i></span>
+                                </p>
+                                <p class="CoreIndexCoreIndex__calcIndex"><span>7日库销比</span>
+                                    <span class="CoreIndexCoreIndex__calcIndexNum">{{o.day}}</span>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--<p class="CoreIndexCoreIndex__lastData">最近30天累计：55,161.56</p>-->
+            <div class="CoreIndexCoreIndex__trendChart">
+                <div class="ebase-CompareChart__root">
+                    <div class="ebase-CompareTrendChart__root">
+                        <div class="recharts-responsive-container"
+                             style="width: 100%; height: 100%; position: relative;">
+                            <div id="summaryMain" class="recharts-wrapper" style="min-width: 600px;height: 300px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</section>

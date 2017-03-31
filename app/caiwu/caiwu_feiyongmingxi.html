@@ -1,0 +1,193 @@
+<section class="LayoutLayoutManager__main SummaryHuopin" cg-busy="myPromise">
+
+    <div  class="CoreIndexCoreIndex__root ebase-Card__root" data-card-id="core-index"
+         data-spm="C_core-index" data-ebase="Card" affix-me id="affix">
+        <div class="ebase-Card__headerWrapper" ><h4 class="ebase-Card__title">费用总览</h4>
+            <div class="ebase-CardHeader__root"  data-ebase="CardHeader">
+                <div class="ui-download">
+                    <a class="btn btn-hollow btn-hollow-diy pull-left" ng-click="addNewSd()"
+                       style="margin-top: 10px;margin-left: 10px;">添加费用</a>
+                </div>
+                <div class="pull-right ebase-CardLink__root">
+                    <div class="operation-btns pull-right">
+                        <div class="ui-switch btn-group-switch">
+                            <ul class="ui-switch-menu">
+                                <li class="ui-switch-link ui-switch-item" ng-click="changePage( m,$event)"
+                                    ng-repeat="m in feiyongMenu"
+                                    ng-class="{active: menuActive == m}"><a>{{m}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" style="margin-top: 20px;">
+            <div class="sui-modal-content">
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+                        <div class="layui-unselect layui-form-checkbox " lay-skin="primary" ng-click="status('不限')"
+                             ng-class="{'layui-form-checked': statusActive == '不限'}">
+
+                            <span >不限 </span><i class="layui-icon"></i>
+                            <div class="weui-badge" style="margin-left: 5px;float: right">{{(jsonFeiyong | filter:{state:''+m}).length}}</div>
+                        </div>
+                        <div class="layui-unselect layui-form-checkbox " lay-skin="primary" ng-click="status(m)"
+                             ng-repeat="m in feiyongstatus"
+                             ng-class="{'layui-form-checked': statusActive == m}"><span >{{m}}  <div class="weui-badge" style="margin-left: 5px;float: right">{{(jsonFeiyong | filter:{state:''+m}).length}}</div></span><i class="layui-icon"></i>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">店铺</label>
+                    <div class="layui-input-block">
+                        <div class="layui-unselect layui-form-checkbox " lay-skin="primary" ng-click="shops(m)"
+                             ng-repeat="m in feiyongshop"
+                             ng-class="{'layui-form-checked': shopActive == m}"><span >{{m}}  <div class="weui-badge" style="margin-left: 5px;float: right">{{(jsonFeiyong | filter:{shop:''+m}).length}}</div></span><i class="layui-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <table class="sui-table sui-table-bordering">
+                    <caption>2017年费用明细 <input type="week"/></caption>
+                    <thead>
+                    <tr>
+                        <th ng-repeat="th in feiyongtableTh">{{th}}</th>
+                    </tr>
+
+                    </thead>
+                    <tbody cg-busy="caiwupromise">
+                    <tr ng-repeat="col in jsonFeiyong">
+                        <td>{{col.class}}</td>
+                        <td>{{col.class_detail}}</td>
+                        <td>{{col.shop}}</td>
+                        <td>{{col.all_price}}</td>
+                        <td>{{col.state}}</td>
+                        <td>{{col.up_time}}</td>
+                        <td>{{col.user}}</td>
+                        <td >
+                            <a ng-if="col.state !='已报销'" class="weui_btn weui_btn_warn" ng-click="checktrue(col)">确认</a>
+                            <!--<a class="weui_btn weui_btn_primary" >-->
+                                <!--查看留底图-->
+                            <!--</a>-->
+                            <div class="weui_uploader_file"  ng-click="priewImg(col.img_src)">
+                                <canvas ng-style="{'background-image': 'url('+ col.img_src +')'}"></canvas>
+                            </div>
+                            </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="weui-gallery">
+                    <span class="weui-gallery-img" ng-style="{'background-image': 'url('+ img_src +')'}"></span>
+                    <div class="weui-gallery-opr">
+                        <a href="javascript:" class="weui-gallery-del" onclick="$('.weui-gallery').fadeOut();$('body').css('overflow','auto')">
+                            <i class="icon icon-95 f-gray"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="addfeiyong.html">
+        <form id="form">
+            <div class="layui-form layui-form-pane"  style="margin: 25px;">
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">费用项</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" checked="">
+                        <div class="layui-unselect layui-form-checkbox " lay-skin="primary" ng-click="selected(m)"
+                             ng-repeat="m in feiyongMenu"
+                             ng-class="{'layui-form-checked': selectedActive == m}" ng-if="!$first"><span >{{m}}</span><i class="layui-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">店铺</label>
+                    <div class="layui-input-block">
+                        <select name="interest" lay-filter="aihao">
+                            <option value=""></option>
+                            <option value="0">写作</option>
+                            <option value="1" selected="">阅读</option>
+                            <option value="2">游戏</option>
+                            <option value="3">音乐</option>
+                            <option value="4">旅行</option>
+                        </select>
+                        <div class="layui-unselect layui-form-select" ng-class="{'layui-form-selected':isSelected}">
+                            <div class="layui-select-title" ng-click="check()"><input type="text" placeholder="请选择"
+                                                                                      value="{{shopvalue}}" readonly=""
+                                                                                      class="layui-input layui-unselect" required><i
+                                    class="layui-edge"></i></div>
+                            <dl class="layui-anim layui-anim-upbit">
+                                <dd lay-value="0" class="" ng-repeat="s in shop" ng-class="{'layui-this':shopvalue == s}"
+                                    ng-click="changeValue(s)">{{s}}
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">金额</label>
+                        <div class="layui-input-inline" style="width: 100px;">
+                            <input type="text" name="price_min" placeholder="￥" autocomplete="off" ng-model="price" class="layui-input" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">日期选择</label>
+                        <div class="layui-input-block">
+                            <input type="date" autocomplete="off" class="weui_input layui-input" emptytips="请选择日期" ng-model="justDate" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">项目说明</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" class="layui-textarea" ng-model="shuoming" required></textarea>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="weui_uploader">
+                            <div class="weui_uploader_hd weui_cell">
+                                <div class="weui_cell_bd weui_cell_primary">图片上传</div>
+                                <div class="weui_cell_ft">{{ uploader.queue.length }}/5</div>
+                            </div>
+                            <div class="weui_uploader_bd">
+                                <ul class="weui_uploader_files">
+                                    <li class="weui_uploader_file" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-class="{'weui_uploader_status':item.isUploading}"
+                                        ng-repeat="item in uploader.queue">
+                                        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 79 }">
+                                            <canvas></canvas>
+
+                                        </div>
+                                        <div class="weui_uploader_status_content" ng-if="item.isUploading">
+                                            {{item.progress + '%'}}
+                                        </div>
+                                        <div class="shade" ng-show="hoverEdit"></div>
+                                        <div class="pic-foot" ng-show="hoverEdit">   <a ng-click="item.remove()">删除</a> </div>
+                                    </li>
+                                </ul>
+                                <div class="weui_uploader_input_wrp">
+                                    <input class="weui_uploader_input" uploader="uploader" nv-file-select="" type="file"
+                                           multiple="" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button class="layui-btn" ng-click="uploader.uploadAll()" id="formSubmitBtn">提交</button>
+                </div>
+            </div>
+        </form>
+
+    </script>
+</section>
+

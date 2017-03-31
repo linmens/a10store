@@ -1,0 +1,101 @@
+<article class="main LayoutLayoutManager__root" style="width: 100%">
+    <div class="ebase-CommonFilter__filter">
+        <div class="screen-sticky  " data-ebase="ScreenSticky" style="top: 0px;">
+            <div class="common-filter" data-ebase="common-filter">
+                <div class="ebase-DayPicker__root" data-ebase="DayPicker">
+                    <a href="javascript: void(0);" class="ebase-DayPicker__btn" ng-click="setRange()"><i
+                            class="oui-icon oui-icon-angle-left"></i>前一天
+                    </a><span class="ebase-DayPicker__calendar"><div class="oui-calendar-trigger oui-popup-trigger"><i
+                        class="oui-icon oui-icon-calendar"></i>
+                     <input date-range-picker id="daterange3" name="daterange3" type="text" ng-model="date"
+                            options="opts" readonly required/>
+                </div></span><a href="javascript: void(0);" class="ebase-DayPicker__btn" ng-disabled="!canClickbefore"
+                                ng-click="setbeforeRange()"><!-- react-text: 340 -->后一天
+                    <!-- /react-text --><i class="oui-icon oui-icon-angle-right"></i></a></div>
+            </div>
+        </div>
+    </div>
+    <div class="pagesHelp__helpHeader clearfix">
+        <tab></tab>
+        <div class="pagesHelp__switchWrapper pull-left">
+            <div class="ebase-Switch__root op-ebase-switch" data-ebase="Switch">
+                <span class="ebase-Switch__item"  ng-click="changePage( m,$event)"
+                      ng-repeat="m in menus"
+                      ng-class="{'ebase-Switch__activeItem': dingdanActive == m}">{{m}}</span></div>
+        </div>
+        <div class="pagesHelp__searchWrapper pull-left">
+            <div class="SharedSearch__searchWrapper"><input type="text" ng-model="search" placeholder="请输入关键词"
+                                                            class="SharedSearch__search" ng-keyup="mykey($event,search)"><i
+                    class="oui-icon oui-icon-search SharedSearch__searchIcon"></i>
+                <i class="oui-icon oui-icon-times SharedSearch__clearIcon" ng-if="search.length" ng-click="emptyInput(search)"></i></div>
+        </div>
+    </div>
+    <div class="ebase-Card__root">
+        <div class="ebase-CardContent__root" data-ebase="CardContent">
+            <div class="SharedHelpCard__filterWrapper" data-ebase="CateFilter">
+                <div class="common-cate-gap msg-content hide"></div>
+                <div class="common-cate is-not-active">
+                    <div class="oui-scroller grey-scroller" style="height: 90px;">
+                        <div class="content oui-scroller-content" data-ebase="CateFilterFolded">
+                            <div class="items clearfix">
+                                <div class="pull-left header"><span>付款状态</span></div>
+                                <div class="line-wrapper">
+                                    <div>
+                                        <div class="clearfix">
+                                            <div class="pull-left details " ng-repeat="y in filterJson.dingdanfukuan"
+                                                 ng-click="checkdingdanfukuan(y)"  ng-class="{'active':fukuanActive==y}"><span class="name">{{y}}</span></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="oui-scroller-pane" style="display: none;">
+                            <div class="oui-scroller-slider" style="height: 23px; transform: translate(0px, 0px);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="SharedHelpCard__listWrapper ebase-Table__root">
+                <table class="ebase-Table__table">
+                    <thead class="ebase-Table__thead">
+                    <tr>
+                        <th>订单号</th>
+                        <th>收货人</th>
+                        <th>淘宝ID</th>
+                        <th>手机号码</th>
+                        <th>用户支付宝</th>
+                        <th>快递公司</th>
+                        <th>物流单号</th>
+                        <th>付款状态</th>
+                        <th>下单时间</th>
+                    </tr>
+                    </thead>
+                    <tbody cg-busy="dingdanfresh">
+                    <tr ng-repeat="order in dingdanData">
+                        <td>
+                            <a ng-href="{{tmgoodlink + order.order_id}}" target="_blank"
+                               ng-if="order.shop_name=='yb_tm'">{{order.order_id}}</a>
+                            <a ng-href="{{tbgoodlink + order.order_id}}" target="_blank"
+                               ng-if="order.shop_name=='yb_tb'">{{order.order_id}}</a>
+                            <a ng-href="{{yhdgoodlink + order.order_id}}" target="_blank"
+                               ng-if="order.shop_name=='yb_yhd'">{{order.order_id}}</a>
+                        </td>
+                        <td>{{order.adress_name}}</td>
+                        <td>{{order.buyer_nick}}</td>
+                        <td>{{order.buyer_phone}}</td>
+                        <td>{{order.buyer_zfb}}</td>
+                        <td>{{order.wl_gs}}</td>
+                        <td>{{order.wl_no}}</td>
+                        <td>{{order.state_order_pingtai}}</td>
+                        <td>{{order.time_xiadan}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <tm-pagination conf="paginationConf"></tm-pagination>
+
+        </div>
+    </div>
+</article>

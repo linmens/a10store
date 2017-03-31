@@ -1,0 +1,112 @@
+<nav id="nav" data-menuid="">
+    <div data-reactroot="" class="nav-container special" data-spm="LeftMenu">
+        <div class="new-special-nav">
+            <ul class="sub-menu-list sub-menu-list-level-2">
+                <li class="menu nav-item title-live-anlay" ><i class="left-nav-icon"></i>
+                    <a class="name-wrapper">
+                        <span class="name">实时分析</span>
+                    </a>
+                    <ul class="sub-menu-list sub-menu-list-level-3">
+                        <li class="expanded menu nav-item  is-leaf title-live-survey" ng-repeat="p in Pmenu" ui-sref="{{p.sref}}" ng-class="{'selected':smenu ==p.sref}" ng-click="changem(p)"><a class="name-wrapper">
+                            <span class="name">{{p.text}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<article class="main LayoutLayoutManager__root" ui-view="diaohuo">
+    <section class="LayoutLayoutManager__main">
+        <div id="DCcard2" class="SLiveIndexSLiveIndex__root ebase-Card__root">
+
+            <div class="ebase-Card__headerWrapper" style="margin-bottom: 20px"><h4 class="ebase-Card__title">配货明细</h4>
+                <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                    <!--<div class="ui-download">-->
+                    <!--<a class="btn btn-hollow btn-hollow-diy pull-left" ng-click="addNewSd()"-->
+                    <!--style="margin-top: 10px;margin-left: 10px;">新增一条</a>-->
+                    <!--</div>-->
+                    <input ng-model="searchInSdorder" ng-init="searchInSdorder = undefined"
+                           ng-change="searchAll(searchInSdorder)" style="text-align: left;    cursor: auto;"
+                           placeholder="货号/订单编号/运单号"
+                           class="dip-input">
+                    <i class="ui-search-empty ng-scope ng-isolate-scope" ng-if="searchInSdorder!=undefined;"
+                       ng-click="searchInSdorder=undefined" style=""></i>
+                    <div class="operation-btns pull-right">
+                        <div class="ui-switch btn-group-switch">
+                            <ul class="ui-switch-menu">
+                                <li class="ui-switch-link ui-switch-item" ng-click="all( menu,$event)"
+                                    ng-repeat="menu in menus"
+                                    ng-class="{active: menuId == menu.id}"><a>{{menu.text}} {{menu.num}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="ui-download">
+                            <a class="btn-dropdown btn btn-blank forExcel" ng-click="downloadPeihuo()" ><i
+                                class="icon-download"></i>
+                            <span class="val">下载配货单</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ebase-CardContent__root" data-ebase="CardContent">
+                <div class="ebase-Table__root">
+                    <div class="pull-left ebase-CardLink__root" data-ebase="CardLink">
+                        <div class="ui-combopanel inline-combopanel">
+                            <div class="ui-combopanel-panel">
+                                <div class="ui-combopanel-groups">
+                                    <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->年份
+                                        <!-- /react-text --><!-- react-text: 199 -->：
+                                        <!-- /react-text --></span>
+                                        <div class="group clearfix">
+                                   <span class="checkbox ng-scope" ng-repeat="s in filterJson.year" ng-class="{'selected':isActiveyear==s}" ng-click="checkYear(s,'card2')">
+                                                    <span class="option"></span>
+                                                    <span class="name ng-binding">{{s}}</span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->季节
+                                        <!-- /react-text --><!-- react-text: 199 -->：
+                                        <!-- /react-text --></span>
+                                        <div class="group clearfix">
+                                   <span class="checkbox ng-scope" ng-repeat="s in filterJson.season" ng-class="{'selected':activeSeason==s}" ng-click="checkSeason(s)">
+                                                    <span class="option"></span>
+                                                    <span class="name ng-binding">{{s}}</span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div><!-- react-text: 210 --><!-- /react-text --></div>
+                        </div>
+                    </div>
+                    <table class="ebase-Table__table goods-table" style="font-size: 14px;border: 0;" ng-hide="selectId == 2">
+                        <thead class="ebase-Table__thead">
+                        <tr>
+                            <th ng-repeat="th in tableTh" ng-click="checkSort(th)">{{th.name}}<span class="table-sort" ng-class="{'desc':th.sort=='down','asc':th.sort=='up'}"></span></th>
+                        </tr>
+                        </thead>
+                        <tbody cg-busy="getJson">
+                        <tr ng-repeat="pee in peihuo_list" ng-class="{isEdit: currentId == pee.key}"
+                            ng-click="clickme(pee.key)" class="ebase-Table__tbodyTr">
+                            <td>
+                                {{pee.outer_id_gs}}
+                            </td>
+                            <td>{{pee.goods_color_gs}}</td>
+                            <td>{{pee.goods_size_gs}}</td>
+                            <td>{{pee.num_ds_ck}}</td>
+                            <td>{{pee.num_gs_ck}}</td>
+                            <td>{{pee.sales_volume_7d}}</td>
+                            <td>{{pee.sales_volume_30d}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="table-top-right">
+                        <tm-pagination conf="paginationConf"></tm-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+

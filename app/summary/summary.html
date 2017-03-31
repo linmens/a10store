@@ -1,0 +1,25 @@
+
+<nav id="nav" data-menuid="">
+    <div data-reactroot="" class="nav-container special" data-spm="LeftMenu">
+        <div class="new-special-nav">
+            <ul class="sub-menu-list sub-menu-list-level-2">
+                <li class="menu nav-item title-live-anlay" ><i class="left-nav-icon"></i>
+                    <a class="name-wrapper">
+                        <span class="name">实时分析</span>
+                    </a>
+                    <ul class="sub-menu-list sub-menu-list-level-3">
+                        <li class="expanded menu nav-item  is-leaf title-live-survey" ng-repeat="m in Pmenu" ui-sref="{{m.sref}}" ng-class="{'selected':smenu ==m.sref}" ng-click="changem(m)"><a class="name-wrapper">
+                            <span class="name">{{m.text}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<article class="main LayoutLayoutManager__root" ui-view="columnOne">
+</article>
+
+
+
+

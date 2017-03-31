@@ -1,0 +1,112 @@
+<section class="LayoutLayoutManager__main" >
+
+    <div class="ebase-Card__root" data-card-id="s-flow-analysis"
+         data-spm="C_s-flow-analysis" data-ebase="Card">
+        <div class="ebase-Card__headerWrapper"><h4 class="ebase-Card__title">订单明细</h4>
+
+            <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+                <!--<span class="pull-right ebase-CardSwitch__root switch-trendswitch" data-ebase="CardSwitch" ng-init="summary_views='单店'">-->
+                <!--<span>-->
+                <!--<span class="ebase-CardSwitch__switchName" ng-click="summary_views='单店'" ng-class="{'ebase-CardSwitch__active':summary_views=='单店'}">单店</span>-->
+                <!--<span class="ebase-CardSwitch__separator">|</span>-->
+                <!--</span>-->
+                <!--<span>-->
+                <!--<span class="ebase-CardSwitch__switchName" ng-click="summary_views='全部';card4_shop_all='科尚'"-->
+                <!--ng-class="{'ebase-CardSwitch__active':summary_views=='全部'}">全部</span>-->
+                <!--</span>-->
+                <!--</span>-->
+                <div class="pull-right ebase-CardLink__root" data-ebase="CardLink">
+                    <div class="ui-combopanel inline-combopanel">
+                        <div class="ui-combopanel-panel">
+                            <div class="ui-combopanel-groups">
+                                <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->品牌
+                                    <!-- /react-text --><!-- react-text: 199 -->：
+                                    <!-- /react-text --></span>
+                                    <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in opSelectedzhibiao.shop"
+                                                      ng-class="{'selected':card4_shop==s.shop}" ng-click="openTocard4_shop(s,'card4')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s.shop}}</span>
+                                                </span>
+                                    </div>
+                                </div>
+                                <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->条件
+                                    <!-- /react-text --><!-- react-text: 199 -->：
+                                    <!-- /react-text --></span>
+                                    <div class="group clearfix">
+                                                <span class="checkbox" ng-repeat="s in opSelectedzhibiao.tiaojian"
+                                                      ng-class="{'selected':card4==s.title}" ng-click="openTocard4(s,'card4')">
+                                                    <span class="option"></span>
+                                                    <span class="name">{{s.title}}</span>
+                                                </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<a class="ebase-link-second" data-spm="d118639"><i class="oui-icon oui-icon-angle-right"></i></a>-->
+                </div>
+                <span></span></div>
+        </div>
+        <div class="ebase-CardContent__root" data-ebase="CardContent" cg-busy="reGetzhibiaocgBusy">
+            <div>
+                <div class="SFlowAnalysisSFlowAnalysis__sourceTop">
+                    <div class="SFlowAnalysisSFlowAnalysis__topSide">
+                        <div class="SFlowAnalysisSFlowAnalysis__wireless" style="width: 100%">
+                            <header class="SFlowAnalysisSFlowAnalysis__title"><h4>{{card4_shop}}</h4>
+                                <!--<div class="ebase-CardLink__root" data-ebase="CardLink"><a-->
+                                <!---->
+                                <!--class="ebase-link-second" >-->
+                                <!--流量地图<i class="oui-icon oui-icon-angle-right"></i></a>-->
+                                <!--</div>-->
+                            </header>
+                            <div class="SFlowAnalysisSFlowAnalysis__tableWrapper summary_zhibiaomingxi">
+                                <div class="ebase-Table__root">
+                                    <table class="ebase-Table__table">
+                                        <thead class="ebase-Table__thead">
+                                        <tr>
+                                            <!--<th class="ebase-Table__th col-2 col-self" style="text-align: center">店铺</th>-->
+                                            <style>
+                                                .card4monthActive {
+                                                    color: red;
+                                                    font-weight: 800;
+                                                }
+                                            </style>
+                                            <th class="ebase-Table__th col-2 col-self " ng-repeat="ms in summary_month" ng-class="{'card4monthActive':ms.value==nowmonth}">
+                                                {{ms.month}}
+                                            </th>
+                                            <!--<th class="ebase-Table__th col-2 col-self " style="color: red;">合计 ({{summary_zhibiao_data[0].all_zhibiao}})-->
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        <tr class="ebase-Table__tbodyTr" >
+                                            <!--<td class="ebase-Table__td col-0 col-name col-level-0 ebase-Table__noChildren" style="text-align: center">{{d.shop}}</td>-->
+                                            <td style="color: #0088fe" class="ebase-Table__td col-2 col-self col-level-0 ebase-Table__noChildren" ng-repeat="d in yearDingdan.this_year">
+                                               {{d.num}}
+                                            </td>
+                                        </tr>
+                                        <tr class="ebase-Table__tbodyTr" >
+                                            <!--<td class="ebase-Table__td col-0 col-name col-level-0 ebase-Table__noChildren" style="text-align: center">{{d.shop}}</td>-->
+                                            <td style="color: #00c49f" class="ebase-Table__td col-2 col-self col-level-0 ebase-Table__noChildren" ng-repeat="d in yearDingdan.last_year">
+                                               {{d.num}}
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="SFlowAnalysisSFlowAnalysis__guide"><span class="SFlowAnalysisSFlowAnalysis__selfShop">今年订单量</span>
+                        <span class="SFlowAnalysisSFlowAnalysis__diffShop">去年订单量</span>
+                        <!--<span style="margin-left: 20px;">总订单: {{summary_zhibiao_data[0].all_zhibiao}}</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

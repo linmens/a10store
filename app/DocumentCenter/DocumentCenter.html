@@ -1,0 +1,285 @@
+<div id="live-index" class="SLiveIndexSLiveIndex__root ebase-Card__root" name="电商总览" data-card-id="live-index"
+     data-spm="C_live-index" data-ebase="Card">
+    <div class="ebase-Card__headerWrapper" style="margin-bottom: 20px"><h4 class="ebase-Card__title">单据总览</h4>
+        <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+            <span class="SLiveIndexSLiveIndex__updateTime SLiveIndexSLiveIndex__updateTime pull-right">更新时间：{{reFresh|date:'yyyy-MM-dd hh:mm:ss'}}</span>
+        </div>
+    </div>
+    <div class="ebase-CardContent__root" data-ebase="CardContent">
+        <ul class="data-indices">
+            <li class="data-index" ng-repeat="all in allData.tm_sd_info">
+                <div class="name sans-serif">依布天猫</div>
+                <div class="value num">{{all.money_usable}}</div>
+                <div class="rate"><span>总金额</span> <span
+                        style="color: #53a000;">{{all.money_all}}</span></div>
+                <div class="rate"><span>订单数</span> <span style="color: #53a000;">{{all.order_sd_num}}</span></div>
+                <div class="rate"><span>支付金额</span> <span style="color: #53a000;">{{all.money_use}}</span></div>
+            </li>
+
+            <li class="data-index" ng-repeat="all in allData.tb_sd_info">
+                <div class="name sans-serif">依布淘宝</div>
+                <div class="value num">{{all.money_usable}}</div>
+                <div class="rate"><span>总金额</span> <span
+                        style="color: #53a000;">{{all.money_all}}</span></div>
+                <div class="rate"><span>订单数</span> <span style="color: #53a000;">{{all.order_sd_num}}</span></div>
+                <div class="rate"><span>支付金额</span> <span style="color: #53a000;">{{all.money_use}}</span></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="DCcard2" class="SLiveIndexSLiveIndex__root ebase-Card__root">
+
+    <div class="ebase-Card__headerWrapper" style="margin-bottom: 20px"><h4 class="ebase-Card__title">单据明细</h4>
+        <div class="ebase-CardHeader__root" data-ebase="CardHeader">
+            <div class="ui-download">
+                <a class="btn btn-hollow btn-hollow-diy pull-left" ng-click="addNewSd()"
+                   style="margin-top: 10px;margin-left: 10px;">新增一条</a>
+            </div>
+            <input ng-model="searchInSdorder" ng-init="searchInSdorder = undefined"
+                   ng-change="searchAll(searchInSdorder)" style="text-align: left;    cursor: auto;"
+                   placeholder="货号/订单编号/运单号"
+                   class="dip-input">
+            <i class="ui-search-empty ng-scope ng-isolate-scope" ng-if="searchInSdorder!=undefined;"
+               ng-click="searchInSdorder=undefined" style=""></i>
+            <div class="operation-btns pull-right">
+                <div class="ui-switch btn-group-switch">
+                    <ul class="ui-switch-menu">
+                        <li class="ui-switch-link ui-switch-item" ng-click="changePage( sdState,$event)"
+                            ng-repeat="sdState in Sdstates"
+                            ng-class="{active: states == sdState.text}"><a>{{sdState.text}}
+                            {{sdState.num}}</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="ui-download"><a class="btn-dropdown btn btn-blank"
+                                            ng-href="http://www.a10store.com/TB_API/app/DocumentCenter/api/get_excel_shuadan.php"><i
+                        class="icon-download"></i>
+                    <span class="val">下载</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ebase-CardContent__root" data-ebase="CardContent">
+        <div class="ebase-Table__root">
+            <div class="pull-left ebase-CardLink__root" data-ebase="CardLink">
+                <div class="ui-combopanel inline-combopanel">
+                    <div class="ui-combopanel-panel">
+                        <div class="ui-combopanel-groups">
+                            <div class="group-wrapper"><span class="group-title"><!-- react-text: 198 -->条件
+                                <!-- /react-text --><!-- react-text: 199 -->：
+                                <!-- /react-text --></span>
+                                <div class="group clearfix">
+                                   <span class="checkbox ng-scope" ng-repeat="s in opSelected" ng-class="{'selected':iamSelected==s.title}" ng-click="openTo(s,'card2')">
+                                                    <span class="option"></span>
+                                                    <span class="name ng-binding">{{s.title}}</span>
+                                                </span>
+                                </div>
+                            </div>
+                        </div><!-- react-text: 210 --><!-- /react-text --></div>
+                </div>
+            </div>
+            <table class="ebase-Table__table" style="font-size: 14px;border: 0;" ng-hide="selectId == 2">
+                <thead class="ebase-Table__thead">
+                <tr>
+                    <th class="ebase-Table__th">店铺</th>
+                    <th>淘宝用户名</th>
+                    <th>订单号</th>
+                    <th>本金</th>
+                    <th>佣金</th>
+                    <th>状态</th>
+                    <th>订单资金结算状态
+                    </th>
+                    <th>付款日期</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="sd in Sdorder|filter:searchInSdorder" class="ebase-Table__tbodyTr">
+
+                    <td>
+                        <span ng-if="sd.shop ==='tm'">天猫</span>
+                        <span ng-if="sd.shop ==='tb'">淘宝C店</span>
+                    </td>
+                    <td>{{sd.buyer_nick}}</td>
+                    <td>{{sd.order_id}}</td>
+                    <td>{{sd.order_money}}
+
+                    </td>
+                    <td>{{sd.order_yongjin}}</td>
+                    <td>{{sd.state}}</td>
+                    <td>{{sd.money_state}}</td>
+                    <td>{{sd.pay_time}}</td>
+                    <td>
+                        <!--用户权限不足，且只能在未确认界面看到删除按钮-->
+                        <!--<svg  ng-click="addTo(sd,'delete')"-->
+                             <!--xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">-->
+                            <!--<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>-->
+                        <!--</svg>-->
+                        <div ng-if="states!='已完成'">
+                            <a ng-click="delete(sd.id)" class="sui-btn sui-btn-primary" ng-if="states!='已结算'">删除</a>
+                            <a ng-click="queren(sd)" class="sui-btn">确认</a>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{allData.info_all_benjin}}</td>
+                    <td>{{allData.info_all_yongjin}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<style>
+    .isActive {
+        background: black !important;
+    }
+
+    .isAddto {
+        fill: green;
+    }
+
+    .isHD {
+        display: none !important;
+    }
+</style>
+<table class="sui-table sui-table-bordering" style="font-size: 14px;border: 0;" ng-if="selectId == 2">
+    <thead>
+    <tr>
+        <th>店铺</th>
+        <th>淘宝用户名</th>
+        <th>订单号</th>
+        <th>本金</th>
+        <th>快递单号</th>
+        <th>状态</th>
+        <th>订单资金结算状态
+        </th>
+        <th>付款日期</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="sd in Sdorder|filter:searchInSdorder">
+
+        <td>
+            <span ng-if="sd.shop ==='tm'">天猫</span>
+            <span ng-if="sd.shop ==='tb'">淘宝C店</span>
+        </td>
+        <td>{{sd.buyer_nick}}</td>
+        <td>{{sd.order_id}}</td>
+        <td>{{sd.order_money}}
+
+        </td>
+        <td>{{sd.order_no_wl}}</td>
+        <td>{{sd.state}}</td>
+        <td>{{sd.money_state}}</td>
+        <td>{{sd.pay_time}}</td>
+        <td>
+            <button class="ui-btn" ng-click="addTo(sd,$index,selectId)" t="1487246818747">下一步</button>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{allData.info_all_benjin}}</td>
+        <td>{{allData.info_all_yongjin}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<script type="text/ng-template" id="DCaddnew.html">
+    <div style="float: left; position: relative; width: 100%;" class="ebase-Table__root">
+        <table class="ebase-Table__table" ng-if="formData.selectedId == 1" style="    margin-bottom: 10px;">
+            <thead>
+            <tr>
+                <th>店铺</th>
+                <th>淘宝用户名</th>
+                <th>订单号</th>
+                <th>本金</th>
+                <th>佣金</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="ebase-Table__tbodyTr">
+                <td>
+                    <select ng-model="formData.shop">
+                        <!--<option ng-repeat="x in names">-->
+                        <!--<span ng-if="x === 'tm'">天猫</span>-->
+                        <!--<span ng-if="x === 'tb'">淘宝</span>-->
+                        <!--</option>-->
+                        <option value="tm">天猫</option>
+                        <option value="tb">淘宝</option>
+                    </select>
+                </td>
+                <td><input type="text" name="buyer_nick" placeholder="" ng-model="formData.buyer_nick"></td>
+                <td>
+                    <input placeholder="" type="text" name="order_id" ng-model="formData.order_id">
+                </td>
+                <td>
+                    <input placeholder="" name="order_money" ng-model="formData.order_money">
+                </td>
+                <td>
+                    <span ng-if="formData.shop==='tm'">{{formData.order_yongjin=7}}</span>
+                    <span ng-if="formData.shop==='tb'">{{formData.order_yongjin=0}}</span>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="sui-table sui-table-bordering" ng-if="formData.selectedId == 2">
+            <thead>
+            <tr>
+                <th>店铺</th>
+                <th>淘宝用户名</th>
+                <th>订单号</th>
+                <th>本金</th>
+                <th>日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <select ng-model="formData.shop">
+                        <!--<option ng-repeat="x in names">-->
+                        <!--<span ng-if="x === 'tm'">天猫</span>-->
+                        <!--<span ng-if="x === 'tb'">淘宝</span>-->
+                        <!--</option>-->
+                        <option value="tm">天猫</option>
+                        <option value="tb">淘宝</option>
+                    </select>
+                </td>
+                <td><input type="text" name="buyer_nick" placeholder="" ng-model="formData.buyer_nick"></td>
+                <td>
+                    <input placeholder="" type="text" name="order_id" ng-model="formData.order_id">
+                </td>
+                <td>
+                    <input placeholder="" name="order_money" ng-model="formData.order_money">
+                </td>
+                <td>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <div class="preview-action">
+            <a  ng-click="yesToPush(formData)"  class="btn btn-primary pull-right">确定</a>
+        </div>
+    </div>
+
+
+</script>

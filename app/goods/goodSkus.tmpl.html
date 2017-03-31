@@ -1,0 +1,161 @@
+<style>
+    .sui-modal-content table{
+        table-layout: fixed;
+    }
+    .ngdialog.ngdialog-theme-default .ngdialog-content{
+        width: 700px;
+    }
+</style>
+    <div class="sui-modal-title" ng-hide="showwhats == 'showBaobiao'">
+{{outerid}}
+    </div>
+<div class="sui-modal-title" ng-if="showwhats == 'showBaobiao'">
+总库存
+    </div>
+<div class="m-tab g-clearfix">
+    <ul class="tabs">
+        <li class="tab" ng-click="showwhat(b)" ng-repeat="b in bao">
+            <a class="link " ng-class="{'selected':yesI == b.id}">{{b.text}}</a>
+        </li>
+
+    </ul>
+</div>
+<div class="sui-modal-content" ng-if="showwhats == 'showBaobiao'" ng-hide="yesI==1" >
+    <button type="button" style="margin: 10px;" class="layui-btn layui-btn-primary" ng-csv="baobiao" csv-header="['年份', '春', '夏','秋','冬','总计']" filename="库存报表.csv">导出库存报表</button>
+    <table class="sui-table sui-table-bordering" >
+        <thead>
+        <tr>
+            <th></th>
+            <th>春</th>
+            <th>夏</th>
+            <th>秋</th>
+            <th>冬</th>
+            <th>合计</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr ng-repeat="col in baobiao">
+            <td >{{col.title}}</td>
+            <td >{{col.spring}}</td>
+            <td >{{col.summer}}</td>
+            <td >{{col.autumn}}</td>
+            <td >{{col.winter}}</td>
+            <td >{{col.all}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="sui-modal-content" ng-if="showwhats == 'showBaobiao' " ng-hide="yesI!=1">
+    <button type="button" style="margin: 10px;" class="layui-btn layui-btn-primary" ng-csv="pinlei" csv-header="['品类', '2017', '2016','2015','2014','2013','2012','2011','总计']" filename="库存报表-品类.csv">导出库存报表-品类</button>
+    <table class="sui-table sui-table-bordering" >
+        <thead>
+        <tr>
+            <th>品类</th>
+            <th>2017</th>
+            <th>2016</th>
+            <th>2015</th>
+            <th>2014</th>
+            <th>2013</th>
+            <th>2012</th>
+            <th>2011</th>
+            <th>总计</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="col in pinlei">
+            <td >{{col.title}}</td>
+            <td >{{col.year_2017}}</td>
+            <td >{{col.year_2016}}</td>
+            <td >{{col.year_2015}}</td>
+            <td >{{col.year_2014}}</td>
+            <td >{{col.year_2013}}</td>
+            <td >{{col.year_2012}}</td>
+            <td >{{col.year_2011}}</td>
+            <td >{{col.year_all}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <div class="sui-modal-content" ng-if="showwhats == 'showThree'">
+        <div style="margin-bottom: 10px;"  >
+            <table class="sui-table sui-table-bordering">
+                <thead>
+                <tr>
+                    <th>电商总库存</th>
+                    <th>M</th>
+                    <th>L</th>
+                    <th>XL</th>
+                    <th>2XL</th>
+                    <th>3XL</th>
+                    <th>4XL</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr ng-repeat="skus in sKus.num_ds_ck">
+                    <td >{{skus.all}}</td>
+                    <td>{{skus.M}}</td>
+                    <td>{{skus.L}}</td>
+                    <td>{{skus.XL}}</td>
+                    <td>{{skus.XXL}}</td>
+                    <td>{{skus.XXXL}}</td>
+                    <td>{{skus.XXXXL}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="goods-quantity" style="margin-bottom: 10px;">
+            <table class="sui-table sui-table-bordering">
+                <thead><tr>
+                    <th>大仓总库存</th>
+                    <th>M</th>
+                    <th>L</th>
+                    <th>XL</th>
+                    <th>2XL</th>
+                    <th>3XL</th>
+                    <th>4XL</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr ng-repeat="skus in sKus.num_gs_ck">
+                    <td >{{skus.all}}</td>
+                    <td>{{skus.M}}</td>
+                    <td>{{skus.L}}</td>
+                    <td>{{skus.XL}}</td>
+                    <td>{{skus.XXL}}</td>
+                    <td>{{skus.XXXL}}</td>
+                    <td>{{skus.XXXXL}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="goods-quantity">
+            <table class="sui-table sui-table-bordering">
+                <thead><tr>
+                    <th>商场总库存</th>
+                    <th>M</th>
+                    <th>L</th>
+                    <th>XL</th>
+                    <th>2XL</th>
+                    <th>3XL</th>
+                    <th>4XL</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr ng-repeat="skus in sKus.num_gs_shop">
+                    <td >{{skus.all}}</td>
+                    <td>{{skus.M}}</td>
+                    <td>{{skus.L}}</td>
+                    <td>{{skus.XL}}</td>
+                    <td>{{skus.XXL}}</td>
+                    <td>{{skus.XXXL}}</td>
+                    <td>{{skus.XXXXL}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
